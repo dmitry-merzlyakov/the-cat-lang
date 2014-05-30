@@ -1,0 +1,6 @@
+- Complete Windows GDI functionality; fix GraphCommand class
+- fix MathEx.Truncate
+- complete EventWaitHandleEx (and constructor)
+- add IO abstraction
+- complete CatEnvironment.ReadChar() (Console.ReadKey().keyChar)
+- add management of gsDataFolder property

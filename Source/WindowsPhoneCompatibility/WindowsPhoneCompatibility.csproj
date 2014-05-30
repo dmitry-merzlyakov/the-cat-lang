@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A0D9FA06-45AB-4466-968F-6635C2878649}</ProjectGuid>
+    <ProjectGuid>{886BD477-2457-4E3D-8C41-C008036D075D}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TheCat</RootNamespace>
-    <AssemblyName>TheCat</AssemblyName>
+    <RootNamespace>WindowsPhoneCompatibility</RootNamespace>
+    <AssemblyName>WindowsPhoneCompatibility</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -49,41 +49,14 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatBase.cs" />
-    <Compile Include="CatClass.cs" />
-    <Compile Include="CatConfig.cs" />
-    <Compile Include="CatEnvironment.cs" />
-    <Compile Include="CatExecutor.cs" />
-    <Compile Include="CatExpr.cs" />
-    <Compile Include="CatFunctions.cs" />
-    <Compile Include="CatFxnType.cs" />
-    <Compile Include="CatGrammar.cs" />
-    <Compile Include="CatHashList.cs" />
-    <Compile Include="CatKinds.cs" />
-    <Compile Include="CatLambda.cs" />
-    <Compile Include="CatList.cs" />
-    <Compile Include="CatMetaData.cs" />
-    <Compile Include="CatOptimizer.cs" />
-    <Compile Include="CatOutput.cs" />
-    <Compile Include="CatParser.cs" />
-    <Compile Include="CatPrimitives.cs" />
-    <Compile Include="CatTypeReconstructor.cs" />
-    <Compile Include="CatTypeVarList.cs" />
-    <Compile Include="CatUtil.cs" />
-    <Compile Include="CatVarRenamer.cs" />
-    <Compile Include="CatVarScopes.cs" />
-    <Compile Include="ConstraintSolver.cs" />
-    <Compile Include="ConstraintSolverUtil.cs" />
-    <Compile Include="MetaCat.cs" />
-    <Compile Include="PegParser.cs" />
+    <Compile Include="ArrayList.cs" />
+    <Compile Include="CharEx.cs" />
+    <Compile Include="EventWaitHandleEx.cs" />
+    <Compile Include="MathEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowGDI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WindowsPhoneCompatibility\WindowsPhoneCompatibility.csproj">
-      <Project>{886BD477-2457-4E3D-8C41-C008036D075D}</Project>
-      <Name>WindowsPhoneCompatibility</Name>
-    </ProjectReference>
+    <Compile Include="Stack.cs" />
+    <Compile Include="Trace.cs" />
+    <Compile Include="TypeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

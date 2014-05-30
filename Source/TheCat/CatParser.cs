@@ -580,7 +580,7 @@ namespace Cat
                 case "\\'": value = '\''; break;
                 case "\\\"": value = '\"'; break;
                 case "\\r": value = '\r'; break;
-                default: value = char.Parse(s); break;
+                default: value = CharEx.Parse(s); break;
             }
         }
 

@@ -99,7 +99,7 @@ namespace Cat
 
             public override void Eval(Executor exec)
             {
-                string sHelpFile = MainClass.gsDataFolder + "\\help.html";
+                string sHelpFile = CatEnvironment.gsDataFolder + "\\help.html";
                 StreamWriter sw = new StreamWriter(sHelpFile);
                 sw.WriteLine("<html><head><title>Cat Help File</title></head><body>");
 
@@ -192,7 +192,7 @@ namespace Cat
 
             public override void Eval(Executor exec)
             {
-                MainClass.SaveTranscript(exec.PopString());
+                Output.SaveTranscript(exec.PopString());
             }
         }
 
@@ -921,7 +921,7 @@ namespace Cat
                     }
                 }
 
-                static EventWaitHandle mWait = new EventWaitHandle(false, EventResetMode.AutoReset);
+                static EventWaitHandleEx mWait = new EventWaitHandleEx(/*DM false, EventResetMode.AutoReset */);
 
                 public void Exec()
                 {
@@ -1391,7 +1391,7 @@ namespace Cat
         public static double cosh_dbl(double x) { return Math.Cosh(x); }
         public static double tanh_dbl(double x) { return Math.Tanh(x); }
         public static double sqrt_dbl(double x) { return Math.Sqrt(x); }
-        public static double trunc_dbl(double x) { return Math.Truncate(x); }
+        public static double trunc_dbl(double x) { return MathEx.Truncate(x); }
         public static double round_dbl(double x) { return Math.Round(x); }
         public static double ceil_dbl(double x) { return Math.Ceiling(x); }
         public static double floor_dbl(double x) { return Math.Floor(x); }
@@ -1465,7 +1465,7 @@ namespace Cat
 
             public override void Eval(Executor exec)
             {
-                exec.Push(Console.ReadKey().KeyChar);
+                exec.Push(CatEnvironment.ReadChar());
             }
         }
         #endregion
