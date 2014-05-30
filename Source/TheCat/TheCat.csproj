@@ -49,6 +49,8 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IFileSystemProvider.cs" />
+    <Compile Include="Abstract\IGraphicConsole.cs" />
     <Compile Include="CatBase.cs" />
     <Compile Include="CatClass.cs" />
     <Compile Include="CatConfig.cs" />

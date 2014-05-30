@@ -100,33 +100,34 @@ namespace Cat
             public override void Eval(Executor exec)
             {
                 string sHelpFile = CatEnvironment.gsDataFolder + "\\help.html";
-                StreamWriter sw = new StreamWriter(sHelpFile);
-                sw.WriteLine("<html><head><title>Cat Help File</title></head><body>");
-
-                /*
-                sw.WriteLine("<h1><a name='level0prims'></a>Level 0 Primitives</h1>");
-                OutputTable(sw, "level0", exec);
-                sw.WriteLine("<h1><a name='level1prims'></a>Level 1 Primitives</h1>");
-                OutputTable(sw, "level1", exec);               
-                sw.WriteLine("<h1><a name='level2prims'></a>Level 2 Primitives</h1>");
-                OutputTable(sw, "level2", exec);                
-                sw.WriteLine("<h1><a name='otherprims'></a>Other Functions</h1>");
-                OutputTable(sw, "", exec);
-                 */
-
-                sw.WriteLine("<h1>Instructions</h1>");
-                OutputAllTable(sw, exec);
-
-                sw.WriteLine("<h1>Definitions</h1>");
-                sw.WriteLine("<pre>");
-                foreach (Function f in exec.GetAllFunctions())
+                using (StreamWriter sw = CatEnvironment.FileSystem.GetStreamWriter(sHelpFile))
                 {
-                    sw.WriteLine(f.GetImplString(true));
+                    sw.WriteLine("<html><head><title>Cat Help File</title></head><body>");
+
+                    /*
+                    sw.WriteLine("<h1><a name='level0prims'></a>Level 0 Primitives</h1>");
+                    OutputTable(sw, "level0", exec);
+                    sw.WriteLine("<h1><a name='level1prims'></a>Level 1 Primitives</h1>");
+                    OutputTable(sw, "level1", exec);               
+                    sw.WriteLine("<h1><a name='level2prims'></a>Level 2 Primitives</h1>");
+                    OutputTable(sw, "level2", exec);                
+                    sw.WriteLine("<h1><a name='otherprims'></a>Other Functions</h1>");
+                    OutputTable(sw, "", exec);
+                     */
+
+                    sw.WriteLine("<h1>Instructions</h1>");
+                    OutputAllTable(sw, exec);
+
+                    sw.WriteLine("<h1>Definitions</h1>");
+                    sw.WriteLine("<pre>");
+                    foreach (Function f in exec.GetAllFunctions())
+                    {
+                        sw.WriteLine(f.GetImplString(true));
+                    }
+                    sw.WriteLine("</pre>");
+
+                    sw.WriteLine("</body></html>");
                 }
-                sw.WriteLine("</pre>");
-    
-                sw.WriteLine("</body></html>");
-                sw.Close();
                 Output.WriteLine("saved help file to " + sHelpFile);
             }
         }
@@ -1480,7 +1481,7 @@ namespace Cat
             public override void Eval(Executor exec)
             {
                 string s = exec.PopString();
-                exec.Push(File.OpenRead(s));
+                exec.Push(CatEnvironment.FileSystem.OpenStream(s));
             }
         }
 
@@ -1493,7 +1494,7 @@ namespace Cat
             public override void Eval(Executor exec)
             {
                 string s = exec.PopString();
-                exec.Push(File.Create(s));
+                exec.Push(CatEnvironment.FileSystem.CreateStream(s));
             }
         }
 
@@ -1506,7 +1507,7 @@ namespace Cat
             public override void Eval(Executor exec)
             {
                 string s = exec.PeekString();
-                exec.Push(Directory.Exists(s));
+                exec.Push(CatEnvironment.FileSystem.DirectoryExists(s));
             }
         }
 

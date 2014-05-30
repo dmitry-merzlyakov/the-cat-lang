@@ -100,10 +100,11 @@ namespace Cat
         {
             try
             {
-                StreamWriter sw = new StreamWriter(sTranscript);
                 gpOutput.Flush();
-                sw.Write(gpOutput.ToString());
-                sw.Close();
+                using (StreamWriter sw = CatEnvironment.FileSystem.GetStreamWriter(sTranscript))
+                {
+                    sw.Write(gpOutput.ToString());
+                }
                 WriteLine("A transcript of your session has been saved to the file " + sTranscript);
             }
             catch (Exception e)

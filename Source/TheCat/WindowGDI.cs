@@ -16,27 +16,27 @@ namespace Cat
     {
         public static void ClearWindow()
         {
-            throw new NotImplementedException();
+            CatEnvironment.GraphicConsole.ClearWindow();
         }
 
         public static void CloseWindow()
         {
-            throw new NotImplementedException();
+            CatEnvironment.GraphicConsole.CloseWindow();
         }
 
         public static void SaveToFile(string fileName)
         {
-            throw new NotImplementedException();
+            CatEnvironment.GraphicConsole.SaveToFile(fileName);
         }
 
         public static void OpenWindow()
         {
-            throw new NotImplementedException();
+            CatEnvironment.GraphicConsole.OpenWindow();
         }
 
         public static void Render(GraphicCommand cmd)
         {
-            throw new NotImplementedException();
+            CatEnvironment.GraphicConsole.Render(cmd);
         }
     }
 

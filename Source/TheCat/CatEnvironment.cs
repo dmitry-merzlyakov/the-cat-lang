@@ -8,12 +8,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Cat.Abstract;
 
 namespace Cat
 {
     public class CatEnvironment
     {
         public static string gsDataFolder { get; set; }
+
+        public static IFileSystemProvider FileSystem { get; set; }
+        public static IGraphicConsole GraphicConsole { get; set; }
 
         public static char ReadChar()
         {

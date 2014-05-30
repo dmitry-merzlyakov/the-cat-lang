@@ -9,7 +9,7 @@ namespace Cat
         public static string FileToString(string sFileName)
         {
             // Read the file 
-            System.IO.StreamReader file = new System.IO.StreamReader(sFileName);
+            System.IO.StreamReader file = CatEnvironment.FileSystem.GetStreamReader(sFileName);
             try
             {
                 return file.ReadToEnd();

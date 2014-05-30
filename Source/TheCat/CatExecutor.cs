@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -21,8 +20,6 @@ namespace Cat
 
     public class Executor : INameLookup
     {
-        public TextReader input = Console.In;
-        public TextWriter output = Console.Out;
         private Dictionary<string, Function> dictionary = new Dictionary<string, Function>();
         INameLookup otherNames;
         List<Object> stack = new List<Object>();
