@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Reflection;
+using System.Globalization;
 
 namespace Cat
 {
@@ -80,7 +81,18 @@ namespace Cat
         public void Invoke(Object o, Type t)
         {
             MethodInfo mi = GetMethod(t);
-            mi.Invoke(o, maArgs);
+
+            // DM+ This is a quick fix for the argument type issues. It is subject for optimization - TODO
+            CultureInfo culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            ParameterInfo[] parameterInfos = mi.GetParameters();
+            object[] arguments = new object[parameterInfos.Length];
+            for (int index = 0; index < parameterInfos.Length && index < maArgs.Length; index++)
+            {
+                arguments[index] = Convert.ChangeType(maArgs[index], parameterInfos[index].ParameterType, culture);
+            }
+            mi.Invoke(o, arguments);
+            //DM-
+            //mi.Invoke(o, maArgs);
         }
     }
 

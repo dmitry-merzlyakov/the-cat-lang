@@ -57,7 +57,7 @@ namespace Cat.Infrastructure
 
             // Copy files
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourcePath = typeof(PresetManager).Namespace + ".CoreCatLib.";
+            string resourcePath = "The" + typeof(PresetManager).Namespace + ".CoreCatLib.";
 
             foreach (string resourceName in assembly.GetManifestResourceNames().Where(s => s.StartsWith(resourcePath)))
             {
