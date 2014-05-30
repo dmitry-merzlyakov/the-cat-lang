@@ -12,7 +12,7 @@ namespace Cat
     /// of the interpreter and compiler. This is not actively maintained, and could
     /// easily be out of sync with the rest of the code
     /// </summary>
-    class Config
+    public class Config
     {
         /// <summary>
         /// Tells us whether this is a release build or not.

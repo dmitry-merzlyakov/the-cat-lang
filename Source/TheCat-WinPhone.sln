@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCat", "TheCat\TheCat.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsPhoneCompatibility", "WindowsPhoneCompatibility\WindowsPhoneCompatibility.csproj", "{886BD477-2457-4E3D-8C41-C008036D075D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCat.Infrastructure", "TheCat.Infrastructure\TheCat.Infrastructure.csproj", "{209F8B84-185F-4493-9E88-59E4AE93736E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{886BD477-2457-4E3D-8C41-C008036D075D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{886BD477-2457-4E3D-8C41-C008036D075D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{886BD477-2457-4E3D-8C41-C008036D075D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{209F8B84-185F-4493-9E88-59E4AE93736E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209F8B84-185F-4493-9E88-59E4AE93736E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209F8B84-185F-4493-9E88-59E4AE93736E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209F8B84-185F-4493-9E88-59E4AE93736E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
