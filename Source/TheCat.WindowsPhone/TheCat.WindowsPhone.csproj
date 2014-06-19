@@ -62,8 +62,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Concrete\GlobalObjects.cs" />
     <Compile Include="Concrete\IsolatedStorageFileSystem.cs" />
     <Compile Include="Concrete\WindowConsole.cs" />
+    <Compile Include="Concrete\WindowsPhoneNavigationManager.cs" />
+    <Compile Include="EditFileView.xaml.cs">
+      <DependentUpon>EditFileView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -79,6 +84,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="EditFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

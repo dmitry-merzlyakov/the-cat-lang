@@ -11,13 +11,15 @@ using System.Windows.Shapes;
 using Cat.Abstract;
 using System.IO;
 using System.IO.IsolatedStorage;
+using TheCat.Infrastructure.VirtualFileSystem;
 
 namespace TheCat.WindowsPhone.Concrete
 {
-    public class IsolatedStorageFileSystem : IFileSystemProvider
+    public class IsolatedStorageFileSystem : IExtendedFileSystemProvider
     {
         public IsolatedStorageFileSystem()
         {
+            // TODO - IDisposable
             IsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
         }
 
@@ -51,12 +53,32 @@ namespace TheCat.WindowsPhone.Concrete
 
         public Stream OpenStream(string fileName)
         {
-            throw new NotImplementedException();
+            return IsolatedStorage.OpenFile(fileName, FileMode.Open);
         }
 
         public Stream CreateStream(string fileName)
         {
-            throw new NotImplementedException();
+            return IsolatedStorage.OpenFile(fileName, FileMode.Create);
+        }
+
+        public string[] GetDirectoryNames(string folderName)
+        {
+            return IsolatedStorage.GetDirectoryNames(folderName);
+        }
+
+        public string[] GetFileNames(string fileName)
+        {
+            return IsolatedStorage.GetFileNames(fileName);
+        }
+
+        public DateTimeOffset GetCreationTime(string path)
+        {
+            return IsolatedStorage.GetCreationTime(path);
+        }
+
+        public DateTimeOffset GetLastWriteTime(string path)
+        {
+            return IsolatedStorage.GetLastWriteTime(path);
         }
     }
 }

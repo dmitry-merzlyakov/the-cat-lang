@@ -41,6 +41,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -49,10 +50,19 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NavigationManager.cs" />
     <Compile Include="PresetManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionDefinition.cs" />
+    <Compile Include="VirtualFileSystem\FileSystemCache.cs" />
+    <Compile Include="VirtualFileSystem\FileSystemItemContent.cs" />
+    <Compile Include="VirtualFileSystem\FileSystemItemDescriptor.cs" />
+    <Compile Include="VirtualFileSystem\IExtendedFileSystemProvider.cs" />
+    <Compile Include="VirtualFileSystem\IVirtualFileSystemRepository.cs" />
+    <Compile Include="VirtualFileSystem\Views\EditFileViewModel.cs" />
+    <Compile Include="VirtualFileSystem\Views\FilesViewModel.cs" />
+    <Compile Include="VirtualFileSystem\VirtualFileSystemRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CoreCatLib\clr-graphics.cat" />
@@ -84,6 +94,7 @@
       <Name>TheCat</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions />

@@ -22,12 +22,12 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="first">
                 <!--Double line list with text wrapping-->
-                <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" Height="380">
+                <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Height="386" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                           <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                              <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                              <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                              <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                              <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                           </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -37,7 +37,8 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="second"> 
                 <!--Triple line list no text wrapping-->
-                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <!--
+                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="SecondListBox_SelectionChanged" Height="403" Width="452">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17">
@@ -47,9 +48,10 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                -->
             </controls:PivotItem>
         </controls:Pivot>
-        <Button Content="Run" Height="72" HorizontalAlignment="Left" Margin="63,630,0,0" Name="button1" VerticalAlignment="Top" Width="160" Click="button1_Click" />
+        <Button Content="Run" Height="72" HorizontalAlignment="Left" Margin="12,624,0,0" Name="button1" VerticalAlignment="Top" Width="113" Click="button1_Click" />
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
