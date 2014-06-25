@@ -41,6 +41,16 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
             }
         }
 
+        public string ShortFileName
+        {
+            get { return _ShortFileName; }
+            set
+            {
+                _ShortFileName = value;
+                OnPropertyChanged("ShortFileName");
+            }
+        }
+
         public string Description
         {
             get { return _Description; }
@@ -76,12 +86,24 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
             get { return _Content; }
             set
             {
+                IsContentChanged = _Content != value;
                 _Content = value;
                 OnPropertyChanged("Content");
             }
         }
 
+        public bool IsContentChanged { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void ValidateAndSave()
+        {
+            if (IsContentChanged)
+            {
+                FileSystemItemContent.Content = Content;
+                Repository.UpdateContent(FileSystemItemContent);
+            }
+        }
 
         private FileSystemItemDescriptor FileSystemItemDescriptor { get; set; }
         private FileSystemItemContent FileSystemItemContent { get; set; }
@@ -110,16 +132,20 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
             FileSystemItemDescriptor = Repository.GetFile(FileName);
             FileSystemItemContent = Repository.GetFileContent(FileName);
 
+            ShortFileName = FileSystemItemDescriptor.Name;
             FullName = FileSystemItemDescriptor.FullName;
             Description = FileSystemItemDescriptor.Description;
             Created = FileSystemItemDescriptor.CreatedDate;
             Updated = FileSystemItemDescriptor.LastUpdateDate;
             Content = FileSystemItemContent.Content;
+
+            IsContentChanged = false;
         }
 
         private IVirtualFileSystemRepository _Repository;
         private string _FullName;
         private string _FileName;
+        private string _ShortFileName;
         private string _Description;
         private DateTimeOffset _Created;
         private DateTimeOffset _Updated;

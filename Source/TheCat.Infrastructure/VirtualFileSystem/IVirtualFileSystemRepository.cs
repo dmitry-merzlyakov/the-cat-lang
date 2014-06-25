@@ -18,5 +18,6 @@ namespace TheCat.Infrastructure.VirtualFileSystem
         FileSystemItemContent GetFileContent(string fullFileName);
         FileSystemItemDescriptor GetFolder(string fullFolderName);
         FileSystemItemDescriptor GetFile(string fullFileName);
+        void UpdateContent(FileSystemItemContent fileSystemItemContent);
     }
 }

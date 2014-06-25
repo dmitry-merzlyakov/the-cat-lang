@@ -26,6 +26,11 @@ namespace TheCat.WindowsPhone
             EditFileViewModel = new EditFileViewModel(GlobalObjects.VirtualFileSystemRepository, fileName);
 
             DataContext = EditFileViewModel;
+
+            // TODO!!!
+            //CodeEditor.Text = EditFileViewModel.Content;
+
+            PagePivot.SelectedItem = PivotItemContent;
         }
 
         public EditFileViewModel EditFileViewModel { get; set; }

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="TheCat.WindowsPhone.Controls.CodeEditorUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"    
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480"
+             Name="CodeEditorControl">
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneInactiveBrush}">
+        <ListBox Name="CodeListBox" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                 ItemsSource="{Binding Items, ElementName=CodeEditorControl}" 
+                 Tap="CodeListBox_Tap">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextWrapping="NoWrap" 
+                               Tap="TextBlock_Tap" FontFamily="Courier New" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Name="CodeTextBox" AcceptsReturn="True" TextWrapping="NoWrap"
+                 Text="{Binding Text, ElementName=CodeEditorControl, Mode=TwoWay}" 
+                 LayoutUpdated="CodeTextBox_LayoutUpdated" 
+                 LostFocus="CodeTextBox_LostFocus" />
+    </Grid>
+</UserControl>

@@ -65,6 +65,18 @@ namespace TheCat.Infrastructure.VirtualFileSystem
             }
         }
 
+        public void UpdateContent(FileSystemItemContent fileSystemItemContent)
+        {
+            if (fileSystemItemContent == null)
+                throw new ArgumentNullException("fileSystemItemContent");
+
+            using (StreamWriter sw = Provider.GetStreamWriter(fileSystemItemContent.FullName))
+            {
+                sw.Write(fileSystemItemContent.Content);
+            }
+        }
+
+
         public FileSystemItemDescriptor GetFolder(string fullFolderName)
         {
             return Cache.GetFolder(fullFolderName);

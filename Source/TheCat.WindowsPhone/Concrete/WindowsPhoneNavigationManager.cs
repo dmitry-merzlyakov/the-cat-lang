@@ -24,10 +24,10 @@ namespace TheCat.WindowsPhone.Concrete
             {
                 if (parameters.Length != 1)
                     throw new InvalidOperationException("Wrong number of parameters");
-                Microsoft.Phone.Shell.PhoneApplicationService.Current.State["EditFileView.xaml"] = parameters[0];
+                Microsoft.Phone.Shell.PhoneApplicationService.Current.State["EditFilePage.xaml"] = parameters[0];
 
                 PhoneApplicationPage currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
-                currentPage.NavigationService.Navigate(new Uri("/EditFileView.xaml", UriKind.Relative));
+                currentPage.NavigationService.Navigate(new Uri("/EditFilePage.xaml", UriKind.Relative));
             }
         }
     }
