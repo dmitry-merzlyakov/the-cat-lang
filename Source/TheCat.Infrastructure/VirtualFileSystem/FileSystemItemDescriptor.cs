@@ -33,7 +33,11 @@ namespace TheCat.Infrastructure.VirtualFileSystem
 
         public string ParentFolderName
         {
-            get { return FullName.Substring(0, FullName.LastIndexOf(@"\")); }
+            get 
+            { 
+                string parentFolderName =  FullName.Substring(0, FullName.LastIndexOf(@"\"));
+                return String.IsNullOrWhiteSpace(parentFolderName) ? @"\" : parentFolderName;
+            }
         }
     }
 }

@@ -1,0 +1,107 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TheCat.WindowsPhone.FilesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:XAMLConverters="clr-namespace:TheCat.WindowsPhone.Controls;assembly=TheCat.WindowsPhone"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    xmlns:cat="clr-namespace:TheCat.WindowsPhone.Controls;assembly=TheCat.WindowsPhone"
+    xmlns:tilteffect="clr-namespace:ControlTiltEffect"    
+    tilteffect:TiltEffect.IsTiltEnabled="True"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    Name="TheFilesPage"
+    shell:SystemTray.IsVisible="True" Loaded="TheFilesPage_Loaded" Unloaded="TheFilesPage_Unloaded">
+
+    <phone:PhoneApplicationPage.Resources>
+        <ImageBrush x:Key="FolderImageBrush" ImageSource="Images\folder.png"></ImageBrush>
+        <XAMLConverters:FileDescriptorImageNameConverter x:Key="FileDescriptorImageNameConverter"/>
+        <XAMLConverters:FileDescriptorBackgroundConverter x:Key="FileDescriptorBackgroundConverter"/>
+        <XAMLConverters:ListEmptyMessageVisibilityConverter x:Key="ListEmptyMessageVisibilityConverter"/>
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Title="{StaticResource ApplicationTitle}">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="{StaticResource FilesTitle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="0,2,0,2" Margin="0,0,0,10">
+                        <TextBlock Text="{Binding CurrentFolderFullName}" />
+                    </Border>
+                    <TextBlock Name="tbFolderIsEmpty" Grid.Row="1" Text="{StaticResource NoneItemsInThisFolder}" Visibility="{Binding Items, Converter={StaticResource ListEmptyMessageVisibilityConverter}}" />
+                    <ListBox Grid.Row="2" x:Name="FirstListBox" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Height="96" Background="{StaticResource PhoneBackgroundBrush}" >
+                                    <i:Interaction.Behaviors>
+                                        <cat:ControlTapCommandBindingBehavior Command="{Binding DataContext.OpenCommand, ElementName=TheFilesPage}"  CommandParameter="{Binding}"/>
+                                    </i:Interaction.Behaviors>
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="Rename" Command="{Binding DataContext.RenameCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
+                                            <toolkit:MenuItem Header="Copy" Command="{Binding DataContext.CopyCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
+                                            <toolkit:MenuItem Header="Cut" Command="{Binding DataContext.CutCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
+                                            <toolkit:MenuItem Header="Delete" Command="{Binding DataContext.DeleteCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+                                    <StackPanel Background="{Binding Converter={StaticResource FileDescriptorBackgroundConverter}}" Width="64" Height="64" VerticalAlignment="Top">
+                                        <Image Source="{Binding Converter={StaticResource FileDescriptorImageNameConverter}}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="{StaticResource SearchTitle}">
+                <Grid/>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_add_file" IconUri="/Images/appbar.file.png" Text="add file"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_add_folder" IconUri="/Images/appbar.folder.png" Text="add folder"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_paste_button" IconUri="/Images/appbar.clipboard.paste.png" Text="paste"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="clear_clipboard" Text="clear clipboard"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <i:Interaction.Behaviors>
+        <abu:AppBarItemCommand Id="add file" Command="{Binding CreateFileCommand}"/>
+        <abu:AppBarItemCommand Id="add folder" Command="{Binding CreateFolderCommand}"/>
+        <abu:AppBarItemCommand Id="paste" Command="{Binding PasteCommand}"/>
+        <abu:AppBarItemCommand Id="clear clipboard" Text="clear clipboard" Type="MenuItem" Command="{Binding ClearClipboardCommand}" />
+    </i:Interaction.Behaviors>
+
+</phone:PhoneApplicationPage>

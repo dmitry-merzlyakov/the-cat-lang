@@ -48,13 +48,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AppBarUtils">
+      <HintPath>..\..\Libs\AppBarUtils 2.4 Binary (WP7)\AppBarUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\..\Libs\wptoolkit.4.2013.8.16.nupkg\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
@@ -62,18 +69,30 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Concrete\GlobalObjects.cs" />
     <Compile Include="Concrete\IsolatedStorageFileSystem.cs" />
+    <Compile Include="Concrete\LocatorConfigurer.cs" />
     <Compile Include="Concrete\WindowConsole.cs" />
     <Compile Include="Concrete\WindowsPhoneNavigationManager.cs" />
     <Compile Include="Controls\CodeEditorUserControl.xaml.cs">
       <DependentUpon>CodeEditorUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ControlTapCommandBindingBehavior.cs" />
+    <Compile Include="Controls\FileDescriptorBackgroundConverter.cs" />
+    <Compile Include="Controls\FileDescriptorImageNameConverter.cs" />
+    <Compile Include="Controls\ListEmptyMessageVisibilityConverter.cs" />
+    <Compile Include="Controls\TextBoxUpdateBindingBehavior.cs" />
+    <Compile Include="Controls\TiltEffect.cs" />
+    <Compile Include="EditFileDescPage.xaml.cs">
+      <DependentUpon>EditFileDescPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditFilePage.xaml.cs">
       <DependentUpon>EditFilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditFileView.xaml.cs">
       <DependentUpon>EditFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilesPage.xaml.cs">
+      <DependentUpon>FilesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -82,6 +101,9 @@
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartPanoramaPage.xaml.cs">
+      <DependentUpon>StartPanoramaPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
@@ -94,11 +116,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditFileDescPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditFilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,6 +141,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartPanoramaPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +161,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\appbar.transport.play.rest.png" />
+    <Content Include="Images\appbar.clipboard.paste.png" />
+    <Content Include="Images\appbar.folder.png" />
+    <Resource Include="Images\appbar.page.small.png" />
     <Content Include="Images\cancel.png" />
+    <Resource Include="Images\folder.png" />
+    <Content Include="Images\appbar.file.png" />
     <Content Include="Images\save.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

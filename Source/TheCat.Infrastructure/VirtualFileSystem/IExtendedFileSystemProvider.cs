@@ -19,7 +19,16 @@ namespace TheCat.Infrastructure.VirtualFileSystem
     {
         string[] GetDirectoryNames(string folderName);
         string[] GetFileNames(string folderName);
+
         DateTimeOffset GetCreationTime(string path);
         DateTimeOffset GetLastWriteTime(string path);
+
+        void CopyFile(string sourceFileName, string destinationFileName);
+        
+        void DeleteDirectory(string dir);
+        void DeleteFile(string file);
+
+        void MoveDirectory(string sourceDirectoryName, string destinationDirectoryName);
+        void MoveFile(string sourceFileName, string destinationFileName);
     }
 }

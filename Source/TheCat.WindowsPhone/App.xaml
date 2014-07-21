@@ -8,8 +8,13 @@
 
     <!--Application Resources-->
     <Application.Resources>
+
+        <clr:String x:Key="PanoramaApplicationTitle">the cat</clr:String>
+        <clr:String x:Key="ApplicationTitle">THE CAT PROGRAMMING LANGUAGE</clr:String>
+        <clr:String x:Key="FilesTitle">files</clr:String>
+        <clr:String x:Key="SearchTitle">search</clr:String>
+        <clr:String x:Key="NoneItemsInThisFolder">This folder is empty</clr:String>
         
-        <clr:String x:Key="ApplicationTitle">The Cat Programming Language</clr:String>
 
         <!-- This style is based on MSDN example: http://code.msdn.microsoft.com/wpapps/Scrollable-TextBox-for-007e3836/view/Reviews -->
         <Style x:Key="ScrollableTextBoxStyle" TargetType="TextBox">

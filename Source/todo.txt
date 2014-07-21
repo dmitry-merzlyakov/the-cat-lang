@@ -4,3 +4,29 @@
 - add IO abstraction
 - complete CatEnvironment.ReadChar() (Console.ReadKey().keyChar)
 - add management of gsDataFolder property
+
+
+Code Editor:
+- tap after the end of the text
+- readonly mode (for system files; optional)
+- syntax highlighting
+
+
+Roadmap:
+- complete File System page
+  (Files&Search pages; add,edit,remove files; move files; multi-selection; context menu and commands; descriptions and file attributes)
+- complete Sessions page
+  (List of sessions; add,edit,remove sessions)
+- complete Console page
+  (console output, graphic view, list of available commands)
+- complete favorites
+- complete Recent Files
+- complete configuration page
+- add help and about pages
+- add synchonization (SkyDrive)
+- add launch image, panorama image
+- optimize runtime performance
+- add unit tests (third-party lib)
+- add landscape support
+- future enhancements (syntex highlighting (in RO at least); debugging; GitHub support)
+- plan desktop application

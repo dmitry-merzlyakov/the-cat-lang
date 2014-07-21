@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using TheCat.Infrastructure.VirtualFileSystem.Views;
 using TheCat.WindowsPhone.Concrete;
+using TheCat.Infrastructure;
+using TheCat.Infrastructure.VirtualFileSystem;
 
 namespace TheCat.WindowsPhone
 {
@@ -21,10 +23,8 @@ namespace TheCat.WindowsPhone
         {
             InitializeComponent();
 
-            string fileName = (string)Microsoft.Phone.Shell.PhoneApplicationService.Current.State["EditFilePage.xaml"];
-            GlobalObjects.EnsureInitialized();
-            EditFileViewModel = new EditFileViewModel(GlobalObjects.VirtualFileSystemRepository, fileName);
-            DataContext = EditFileViewModel;
+            INavigationManager navigationManager = Locator.Get<INavigationManager>();
+            DataContext = EditFileViewModel = Locator.Get<EditFileViewModel>(navigationManager.PopTarget(), navigationManager.PopParams());
         }
 
         public EditFileViewModel EditFileViewModel { get; set; }

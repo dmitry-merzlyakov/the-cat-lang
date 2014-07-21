@@ -80,5 +80,31 @@ namespace TheCat.WindowsPhone.Concrete
         {
             return IsolatedStorage.GetLastWriteTime(path);
         }
+
+
+        public void DeleteDirectory(string dir)
+        {
+            IsolatedStorage.DeleteDirectory(dir);
+        }
+
+        public void DeleteFile(string file)
+        {
+            IsolatedStorage.DeleteFile(file);
+        }
+
+        public void MoveDirectory(string sourceDirectoryName, string destinationDirectoryName)
+        {
+            IsolatedStorage.MoveDirectory(sourceDirectoryName, destinationDirectoryName);
+        }
+
+        public void MoveFile(string sourceFileName, string destinationFileName)
+        {
+            IsolatedStorage.MoveFile(sourceFileName, destinationFileName);
+        }
+
+        public void CopyFile(string sourceFileName, string destinationFileName)
+        {
+            IsolatedStorage.CopyFile(sourceFileName, destinationFileName);
+        }
     }
 }

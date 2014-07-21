@@ -55,6 +55,10 @@ namespace TheCat.WindowsPhone
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            // Initialize IoC
+            TheCat.Infrastructure.LocatorConfigurer.Configure();
+            TheCat.WindowsPhone.Concrete.LocatorConfigurer.Configure();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {

@@ -94,6 +94,11 @@ namespace TheCat.WindowsPhone.Controls
                 CodeTextBox.Select(position, 0);
                 CodeListBox.SelectedIndex = -1; // In order to hide the selection
             }
+            else
+            {
+                if (String.IsNullOrWhiteSpace(Text))
+                    IsEditing = true;
+            }
         }
 
         public int GetCaretPosition(Point point, double textBlockActualWidth)

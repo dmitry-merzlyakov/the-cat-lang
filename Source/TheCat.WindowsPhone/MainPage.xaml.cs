@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using TheCat.Infrastructure.VirtualFileSystem;
 using TheCat.WindowsPhone.Concrete;
 using TheCat.Infrastructure.VirtualFileSystem.Views;
+using TheCat.Infrastructure;
 
 namespace TheCat.WindowsPhone
 {
@@ -26,8 +27,7 @@ namespace TheCat.WindowsPhone
             // Set the data context of the listbox control to the sample data
             //DataContext = App.ViewModel;
 
-            GlobalObjects.EnsureInitialized();
-            FilesViewModel = new FilesViewModel(GlobalObjects.VirtualFileSystemRepository);
+//            FilesViewModel = new FilesViewModel(Locator.Get<IVirtualFileSystemRepository>());
             DataContext = FilesViewModel;
 
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);

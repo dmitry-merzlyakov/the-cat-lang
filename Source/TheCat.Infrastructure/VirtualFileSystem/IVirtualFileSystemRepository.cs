@@ -18,6 +18,11 @@ namespace TheCat.Infrastructure.VirtualFileSystem
         FileSystemItemContent GetFileContent(string fullFileName);
         FileSystemItemDescriptor GetFolder(string fullFolderName);
         FileSystemItemDescriptor GetFile(string fullFileName);
-        void UpdateContent(FileSystemItemContent fileSystemItemContent);
+        FileSystemResult Create(FileSystemItemDescriptor fileSystemItemDescriptor);
+        FileSystemResult Update(FileSystemItemDescriptor fileSystemItemDescriptor);
+        FileSystemResult Delete(FileSystemItemDescriptor fileSystemItemDescriptor);
+        FileSystemResult Copy(FileSystemItemDescriptor itemDescriptor, FileSystemItemDescriptor targetFolder, string targetName);
+        FileSystemResult Move(FileSystemItemDescriptor fileSystemItemDescriptor, FileSystemItemDescriptor targetFolder, string targetName);
+        FileSystemResult UpdateContent(FileSystemItemContent fileSystemItemContent);
     }
 }

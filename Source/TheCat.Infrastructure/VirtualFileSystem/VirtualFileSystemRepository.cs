@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.IO;
+using TheCat.Infrastructure.Events;
+using TheCat.Infrastructure.VirtualFileSystem.Events;
 
 namespace TheCat.Infrastructure.VirtualFileSystem
 {
@@ -65,15 +67,24 @@ namespace TheCat.Infrastructure.VirtualFileSystem
             }
         }
 
-        public void UpdateContent(FileSystemItemContent fileSystemItemContent)
+        public FileSystemResult UpdateContent(FileSystemItemContent fileSystemItemContent)
         {
             if (fileSystemItemContent == null)
                 throw new ArgumentNullException("fileSystemItemContent");
 
-            using (StreamWriter sw = Provider.GetStreamWriter(fileSystemItemContent.FullName))
+            try
             {
-                sw.Write(fileSystemItemContent.Content);
+                using (StreamWriter sw = Provider.GetStreamWriter(fileSystemItemContent.FullName))
+                {
+                    sw.Write(fileSystemItemContent.Content);
+                }
             }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            return FileSystemResult.OK;
         }
 
 
@@ -113,5 +124,172 @@ namespace TheCat.Infrastructure.VirtualFileSystem
 
         private IExtendedFileSystemProvider _Provider;
         private readonly FileSystemCache Cache;
+
+
+        public FileSystemResult Create(FileSystemItemDescriptor fileSystemItemDescriptor)
+        {
+            if (fileSystemItemDescriptor == null)
+                throw new ArgumentNullException("fileSystemItemDescriptor");
+
+            try
+            {
+                if (fileSystemItemDescriptor.IsFolder)
+                    Provider.CreateDirectory(fileSystemItemDescriptor.FullName);
+                else
+                    using (Provider.CreateStream(fileSystemItemDescriptor.FullName)) { };
+            }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(fileSystemItemDescriptor, ItemModificationType.Created));
+            return FileSystemResult.OK;
+        }
+
+        public FileSystemResult Update(FileSystemItemDescriptor fileSystemItemDescriptor)
+        {
+            if (fileSystemItemDescriptor == null)
+                throw new ArgumentNullException("fileSystemItemDescriptor");
+
+            string fullTargetName = System.IO.Path.Combine(fileSystemItemDescriptor.ParentFolderName, fileSystemItemDescriptor.Name);
+
+            try
+            {
+                if (fileSystemItemDescriptor.IsFolder)
+                {
+                    if (fileSystemItemDescriptor.IsRootFolder)
+                        throw new InvalidOperationException("Cannot rename the root folder");
+
+                    Provider.MoveDirectory(fileSystemItemDescriptor.FullName, fullTargetName);
+                }
+                else
+                {
+                    Provider.MoveFile(fileSystemItemDescriptor.FullName, fullTargetName);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(fileSystemItemDescriptor, ItemModificationType.Updated));
+            return FileSystemResult.OK;
+        }
+
+        public FileSystemResult Delete(FileSystemItemDescriptor fileSystemItemDescriptor)
+        {
+            if (fileSystemItemDescriptor == null)
+                throw new ArgumentNullException("fileSystemItemDescriptor");
+
+            try
+            {
+                if (fileSystemItemDescriptor.IsFolder)
+                {
+                    if (fileSystemItemDescriptor.IsRootFolder)
+                        throw new InvalidOperationException("Cannot delete the root folder");
+
+                    DeleteDirectory(fileSystemItemDescriptor.FullName);
+                }
+                else
+                {
+                    Provider.DeleteFile(fileSystemItemDescriptor.FullName);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(fileSystemItemDescriptor, ItemModificationType.Deleted));
+            return FileSystemResult.OK;
+        }
+
+        public FileSystemResult Copy(FileSystemItemDescriptor fileSystemItemDescriptor, FileSystemItemDescriptor targetFolder, string targetName)
+        {
+            if (fileSystemItemDescriptor == null)
+                throw new ArgumentNullException("fileSystemItemDescriptor");
+            if (targetFolder == null)
+                throw new ArgumentNullException("targetFolder");
+
+            string fullTargetName = System.IO.Path.Combine(targetFolder.FullName, String.IsNullOrWhiteSpace(targetName) ? fileSystemItemDescriptor.Name : targetName);
+
+            try
+            {
+                if (fileSystemItemDescriptor.IsFolder)
+                    CopyDirectory(fileSystemItemDescriptor.FullName, fullTargetName);
+                else
+                    Provider.CopyFile(fileSystemItemDescriptor.FullName, fullTargetName);
+            }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            FileSystemItemDescriptor copiedDescriptor = GetFolderContent(targetFolder.FullName).First(d => d.FullName == fullTargetName);
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(copiedDescriptor, ItemModificationType.Created));
+
+            return FileSystemResult.OK;
+        }
+
+        public FileSystemResult Move(FileSystemItemDescriptor fileSystemItemDescriptor, FileSystemItemDescriptor targetFolder, string targetName)
+        {
+            if (fileSystemItemDescriptor == null)
+                throw new ArgumentNullException("fileSystemItemDescriptor");
+            if (targetFolder == null)
+                throw new ArgumentNullException("targetFolder");
+
+            string fullTargetName = System.IO.Path.Combine(targetFolder.FullName, String.IsNullOrWhiteSpace(targetName) ? fileSystemItemDescriptor.Name : targetName);
+
+            try
+            {
+                if (fileSystemItemDescriptor.IsFolder)
+                    Provider.MoveDirectory(fileSystemItemDescriptor.FullName, fullTargetName);
+                else
+                    Provider.MoveFile(fileSystemItemDescriptor.FullName, fullTargetName);
+            }
+            catch (Exception ex)
+            {
+                return new FileSystemResult(FileSystemErrorCode.Unknown, ex.Message);
+            }
+
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(fileSystemItemDescriptor, ItemModificationType.Deleted));
+            FileSystemItemDescriptor movedDescriptor = GetFolderContent(targetFolder.FullName).First(d => d.FullName == fullTargetName);
+            Locator.Get<EventManager>().PublishEvent(new ItemChangedEvent(movedDescriptor, ItemModificationType.Created));
+
+            return FileSystemResult.OK;
+        }
+
+        /// <summary>
+        /// Deletes a directory with all its content
+        /// </summary>
+        private void DeleteDirectory(string directoryName)
+        {
+            string[] directoryNames = Provider.GetDirectoryNames(directoryName + @"\*.*");
+            foreach (string childDirectoryName in directoryNames)
+                DeleteDirectory(System.IO.Path.Combine(directoryName, childDirectoryName));
+
+            string[] fileNames = Provider.GetFileNames(directoryName + @"\*.*");
+            foreach (string fileName in fileNames)
+                Provider.DeleteFile(System.IO.Path.Combine(directoryName, fileName));
+
+            Provider.DeleteDirectory(directoryName);
+        }
+
+        /// <summary>
+        /// Copies a directory with all its content
+        /// </summary>
+        private void CopyDirectory(string sourceDirectoryName, string targetDirectoryName)
+        {
+            Provider.CreateDirectory(targetDirectoryName);
+
+            string[] directoryNames = Provider.GetDirectoryNames(sourceDirectoryName + @"\*.*");
+            foreach (string childDirectoryName in directoryNames)
+                CopyDirectory(System.IO.Path.Combine(sourceDirectoryName, childDirectoryName), System.IO.Path.Combine(targetDirectoryName, childDirectoryName));
+
+            string[] fileNames = Provider.GetFileNames(sourceDirectoryName + @"\*.*");
+            foreach (string fileName in fileNames)
+                Provider.CopyFile(System.IO.Path.Combine(sourceDirectoryName, fileName), System.IO.Path.Combine(targetDirectoryName, fileName));
+        }
     }
 }
