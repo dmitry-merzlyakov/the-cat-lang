@@ -31,5 +31,22 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                 MessageBox.Show(fileSystemResult.ErrorMessage);
         }
 
+        public static string GetFolderName(this string fileSystemItemName)
+        {
+            if (String.IsNullOrWhiteSpace(fileSystemItemName))
+                return String.Empty;
+
+            string parentFolderName = fileSystemItemName.Substring(0, fileSystemItemName.LastIndexOf(@"\"));
+            return String.IsNullOrWhiteSpace(parentFolderName) ? @"\" : parentFolderName;
+        }
+
+        public static string GetFileName(this string fileSystemItemName)
+        {
+            if (String.IsNullOrWhiteSpace(fileSystemItemName))
+                return String.Empty;
+
+            return System.IO.Path.GetFileName(fileSystemItemName);
+        }
+
     }
 }

@@ -68,8 +68,9 @@
                                     <StackPanel Background="{Binding Converter={StaticResource FileDescriptorBackgroundConverter}}" Width="64" Height="64" VerticalAlignment="Top">
                                         <Image Source="{Binding Converter={StaticResource FileDescriptorImageNameConverter}}" />
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                                    <StackPanel Orientation="Vertical" Margin="8,0,0,0">
                                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                        <TextBlock Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource PhoneTextSmallStyle}" Height="24" />
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

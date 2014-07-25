@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using TheCat.Infrastructure.Events;
 using TheCat.Infrastructure.VirtualFileSystem.Events;
+using TheCat.Infrastructure.VirtualFileSystem.ExtendedInfo;
 
 namespace TheCat.Infrastructure.VirtualFileSystem
 {
@@ -87,7 +88,6 @@ namespace TheCat.Infrastructure.VirtualFileSystem
             return FileSystemResult.OK;
         }
 
-
         public FileSystemItemDescriptor GetFolder(string fullFolderName)
         {
             return Cache.GetFolder(fullFolderName);
@@ -110,12 +110,12 @@ namespace TheCat.Infrastructure.VirtualFileSystem
 
         private FileSystemItemDescriptor CreateFileSystemItemDescriptor(string name, bool isFolder)
         {
-            string shortName = System.IO.Path.GetFileName(name);
+            ExtendedInfoItem extendedInfoItem = ExtendedInfoManager.Current.Get(name);
             return new FileSystemItemDescriptor()
             {
                 FullName = name,
-                Name = shortName,
-                Description = String.Empty,
+                Name = name.GetFileName(),
+                Description = extendedInfoItem.GetDescriptor(),
                 IsFolder = isFolder,
                 CreatedDate = Provider.GetCreationTime(name),
                 LastUpdateDate = Provider.GetLastWriteTime(name)
@@ -137,6 +137,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                     Provider.CreateDirectory(fileSystemItemDescriptor.FullName);
                 else
                     using (Provider.CreateStream(fileSystemItemDescriptor.FullName)) { };
+
+                ExtendedInfoManager.Current.SaveOrUpdate(fileSystemItemDescriptor.ParentFolderName, fileSystemItemDescriptor.GetExtendedInfoItem());
             }
             catch (Exception ex)
             {
@@ -167,6 +169,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                 {
                     Provider.MoveFile(fileSystemItemDescriptor.FullName, fullTargetName);
                 }
+
+                ExtendedInfoManager.Current.SaveOrUpdate(fileSystemItemDescriptor.ParentFolderName, fileSystemItemDescriptor.GetExtendedInfoItem());
             }
             catch (Exception ex)
             {
@@ -195,6 +199,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                 {
                     Provider.DeleteFile(fileSystemItemDescriptor.FullName);
                 }
+
+                ExtendedInfoManager.Current.Delete(fileSystemItemDescriptor.FullName);
             }
             catch (Exception ex)
             {
@@ -220,6 +226,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                     CopyDirectory(fileSystemItemDescriptor.FullName, fullTargetName);
                 else
                     Provider.CopyFile(fileSystemItemDescriptor.FullName, fullTargetName);
+
+                ExtendedInfoManager.Current.SaveOrUpdate(fileSystemItemDescriptor.FullName, fileSystemItemDescriptor.GetExtendedInfoItem());
             }
             catch (Exception ex)
             {
@@ -247,6 +255,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
                     Provider.MoveDirectory(fileSystemItemDescriptor.FullName, fullTargetName);
                 else
                     Provider.MoveFile(fileSystemItemDescriptor.FullName, fullTargetName);
+
+                ExtendedInfoManager.Current.ClearCache();
             }
             catch (Exception ex)
             {

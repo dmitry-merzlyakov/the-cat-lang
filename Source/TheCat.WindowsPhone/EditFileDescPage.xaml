@@ -37,7 +37,11 @@
                 </i:Interaction.Behaviors>
             </TextBox>
             <TextBlock Name="ValidationMessagesPlaceholder1" Margin="12,0,0,-6">Description</TextBlock>
-            <TextBox Height="144" Name="textBoxDesc" Text="{Binding Description, Mode=TwoWay}" />
+            <TextBox Height="144" Name="textBoxDesc" Text="{Binding Description, Mode=TwoWay}" AcceptsReturn="True">
+                <i:Interaction.Behaviors>
+                    <cat:TextBoxUpdateBindingBehavior/>
+                </i:Interaction.Behaviors>
+            </TextBox>
 
         </StackPanel>
         
