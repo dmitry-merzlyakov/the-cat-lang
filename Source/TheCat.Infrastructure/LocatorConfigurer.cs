@@ -11,6 +11,8 @@ using System.Windows.Shapes;
 using TheCat.Infrastructure.VirtualFileSystem;
 using TheCat.Infrastructure.VirtualFileSystem.Views;
 using TheCat.Infrastructure.Events;
+using TheCat.Infrastructure.Sessions.Views;
+using TheCat.Infrastructure.Sessions;
 
 namespace TheCat.Infrastructure
 {
@@ -19,6 +21,7 @@ namespace TheCat.Infrastructure
         public static void Configure()
         {
             Locator.AddService<IVirtualFileSystemRepository>((p) => new VirtualFileSystemRepository(Locator.Get<IExtendedFileSystemProvider>()));
+            Locator.AddService<ISessionDefinitionRepository>((p) => new SessionDefinitionRepository(Locator.Get<IExtendedFileSystemProvider>()));
             Locator.AddService<EventManager>((p) => new EventManager());
 
             Locator.AddService<BaseFileDescriptorViewModel>(StringKeys.CreateFile, (p) => new CreateFileViewModel(Locator.Get<IVirtualFileSystemRepository>(), p[StringKeys.CurrentFolderName]), true);
@@ -29,6 +32,10 @@ namespace TheCat.Infrastructure
 
             // TODO - weak references
             Locator.AddService<FilesViewModel>(StringKeys.ViewFiles, (p) => new FilesViewModel(Locator.Get<IVirtualFileSystemRepository>(), p == null ? null : p[StringKeys.CurrentFolderName]), false);
+
+            Locator.AddService<SessionDefinitionsViewModel>(StringKeys.ViewSessions, (p) => new SessionDefinitionsViewModel(Locator.Get<ISessionDefinitionRepository>()), false);
+            Locator.AddService<SessionDefinitionsEditModel>(StringKeys.CreateSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>()), true);
+            Locator.AddService<SessionDefinitionsEditModel>(StringKeys.EditSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>(), p[StringKeys.SessionName]), false);
         }
     }
 }

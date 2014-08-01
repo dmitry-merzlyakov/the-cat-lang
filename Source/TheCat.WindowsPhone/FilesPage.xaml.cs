@@ -37,13 +37,5 @@ namespace TheCat.WindowsPhone
             if (FirstListBox.SelectedItem != null)
                 FirstListBox.ScrollIntoView(FirstListBox.SelectedItem);
         }
-
-        private void TheFilesPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ClipboardChangedHandler(ClipboardChangedEvent evnt)
-        {
-        }
     }
 }

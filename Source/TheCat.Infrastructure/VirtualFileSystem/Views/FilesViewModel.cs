@@ -17,7 +17,7 @@ using TheCat.Infrastructure.VirtualFileSystem.Events;
 
 namespace TheCat.Infrastructure.VirtualFileSystem.Views
 {
-    public class FilesViewModel : INotifyPropertyChanged
+    public class FilesViewModel : BaseListViewModel<FileSystemItemDescriptor>
     {
         public FilesViewModel(IVirtualFileSystemRepository repository, string fullFolderName)
         {
@@ -163,26 +163,6 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
             get { return CurrentFolder.Name; }
         }
 
-        public ObservableCollection<FileSystemItemDescriptor> Items
-        {
-            get { return _Items; }
-            set
-            {
-                _Items = value;
-                OnPropertyChanged("Items");
-            }
-        }
-
-        public FileSystemItemDescriptor SelectedItem
-        {
-            get { return _SelectedItem; }
-            set
-            {
-                _SelectedItem = value;
-                OnPropertyChanged("SelectedItem");
-            }
-        }
-
         public ICommand CreateFolderCommand { get; private set; }
         public ICommand CreateFileCommand { get; private set; }
         public ICommand OpenCommand { get; private set; }
@@ -192,8 +172,6 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
         public ICommand PasteCommand { get; private set; }
         public ICommand ClearClipboardCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private IVirtualFileSystemRepository Repository
         {
@@ -209,26 +187,11 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
 
         private FileSystemItemDescriptor CurrentFolder { get; set; }
 
-        private void OnPropertyChanged(string propertyChanged)
+        protected override IEnumerable<FileSystemItemDescriptor> GetItemsFromRepository()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyChanged));
+            return Repository.GetFolderContent(CurrentFolder.FullName);
         }
 
-        private void RefreshItems()
-        {
-            FileSystemItemDescriptor previouslySelected = SelectedItem;
-
-            Items.Clear();
-            foreach (FileSystemItemDescriptor item in Repository.GetFolderContent(CurrentFolder.FullName))
-                Items.Add(item);
-
-            if (Items.Contains(previouslySelected))
-                SelectedItem = previouslySelected;
-        }
-
-        private ObservableCollection<FileSystemItemDescriptor> _Items = new ObservableCollection<FileSystemItemDescriptor>();
-        private FileSystemItemDescriptor _SelectedItem;
         private IVirtualFileSystemRepository _Repository;
     }
 }

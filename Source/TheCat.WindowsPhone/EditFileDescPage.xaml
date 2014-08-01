@@ -30,46 +30,19 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock Name="ValidationMessagesPlaceholder2" Margin="12,0,0,-6">Name</TextBlock>
+            <TextBlock Name="NameLabel"  Style="{StaticResource LabelTextBlock}">Name</TextBlock>
             <TextBox Name="textBoxName" Text="{Binding Name, Mode=TwoWay}">
                 <i:Interaction.Behaviors>
                     <cat:TextBoxUpdateBindingBehavior/>
                 </i:Interaction.Behaviors>
             </TextBox>
-            <TextBlock Name="ValidationMessagesPlaceholder1" Margin="12,0,0,-6">Description</TextBlock>
+            <TextBlock Name="DescLabel"  Style="{StaticResource LabelTextBlock}">Description</TextBlock>
             <TextBox Height="144" Name="textBoxDesc" Text="{Binding Description, Mode=TwoWay}" AcceptsReturn="True">
                 <i:Interaction.Behaviors>
                     <cat:TextBoxUpdateBindingBehavior/>
                 </i:Interaction.Behaviors>
             </TextBox>
-
         </StackPanel>
-        
-        <!--ContentPanel - place additional content here-->
-        <!--
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock Name="ValidationMessagesPlaceholder">TEXT</TextBlock>
-            <TextBlock Name="ValidationMessagesPlaceholder1">TEXT1</TextBlock>
-            <TextBox Name="aaa"></TextBox>
-            <TextBlock Height="36" HorizontalAlignment="Left" 
-                       Margin="12,0,0,0" 
-                       Name="textBlockName1" Text="AAAName" 
-                       VerticalAlignment="Top" Width="437" />
-            <TextBlock Height="36" HorizontalAlignment="Left" 
-                       Margin="12,0,0,0" 
-                       Name="textBlockName" Text="Name" 
-                       VerticalAlignment="Top" Width="437" />
-            <TextBox Height="72" HorizontalAlignment="Left" 
-                     Margin="0,20,0,0" Name="textBoxName" 
-                     Text="{Binding Name}" 
-                     VerticalAlignment="Top" Width="461" />
-            <TextBlock Height="36" HorizontalAlignment="Left" 
-                       Margin="12,102,0,0" Name="textBlockDesc" 
-                       Text="Description" VerticalAlignment="Top" Width="434" />
-            <TextBox Height="167" HorizontalAlignment="Left" Margin="0,120,0,0" Name="textBoxDesc" 
-                     Text="{Binding Description}" VerticalAlignment="Top" Width="461" />
-        </Grid>
-            -->
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

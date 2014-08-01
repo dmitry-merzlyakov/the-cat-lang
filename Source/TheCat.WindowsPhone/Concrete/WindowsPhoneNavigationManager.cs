@@ -26,6 +26,9 @@ namespace TheCat.WindowsPhone.Concrete
             PageMapping.Add(StringKeys.ModifyFile, "/EditFileDescPage.xaml");
             PageMapping.Add(StringKeys.ModifyFolder, "/EditFileDescPage.xaml");
             PageMapping.Add(StringKeys.ViewFiles, "/FilesPage.xaml");
+            PageMapping.Add(StringKeys.ViewSessions, "/SessionsPage.xaml");
+            PageMapping.Add(StringKeys.CreateSession, "/EditSessionPage.xaml");
+            PageMapping.Add(StringKeys.EditSession, "/EditSessionPage.xaml");
         }
 
         public PhoneApplicationPage CurrentPage

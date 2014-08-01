@@ -28,7 +28,7 @@
                             <TextBlock Text="console" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap_1" Margin="12,0,12,12" />
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="sessions" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" />
+                            <TextBlock Text="sessions" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" Tap="TextBlock_Tap_2" />
                         </ListBoxItem>
                         <ListBoxItem>
                             <TextBlock Text="files" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap" Margin="12,0,12,12" />

@@ -1,0 +1,81 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TheCat.WindowsPhone.SessionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    xmlns:tilteffect="clr-namespace:ControlTiltEffect"    
+    tilteffect:TiltEffect.IsTiltEnabled="True"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cat="clr-namespace:TheCat.WindowsPhone.Controls;assembly=TheCat.WindowsPhone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    shell:SystemTray.IsVisible="True"
+    Name="TheSessionsPage">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource ApplicationTitle}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="{StaticResource SessionsTitle}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ListBox Grid.Row="2" x:Name="FirstListBox" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" >
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="96" Background="{StaticResource PhoneBackgroundBrush}" >
+                            <i:Interaction.Behaviors>
+                                <cat:ControlTapCommandBindingBehavior Command="{Binding DataContext.RunSession, ElementName=TheSessionsPage}"  CommandParameter="{Binding}"/>
+                            </i:Interaction.Behaviors>
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu>
+                                    <toolkit:MenuItem Header="Edit" Command="{Binding DataContext.EditSession, ElementName=TheSessionsPage}" CommandParameter="{Binding}" />
+                                    <toolkit:MenuItem Header="Delete" Command="{Binding DataContext.DeleteSession, ElementName=TheSessionsPage}" CommandParameter="{Binding}" />
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
+                            <StackPanel Background="{StaticResource PhoneAccentBrush}" Width="64" Height="64" VerticalAlignment="Top">
+                                <Image Source="Images\appbar.cog.png" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="8,0,0,0">
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <TextBlock Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource PhoneTextSmallStyle}" Height="24" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_add_file" IconUri="/Images/appbar.file.png" Text="add session"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <i:Interaction.Behaviors>
+        <abu:AppBarItemCommand Id="add session" Command="{Binding CreateSession}"/>
+    </i:Interaction.Behaviors>
+
+</phone:PhoneApplicationPage>

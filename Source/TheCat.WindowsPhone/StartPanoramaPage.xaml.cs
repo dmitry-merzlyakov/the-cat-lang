@@ -30,5 +30,10 @@ namespace TheCat.WindowsPhone
         {
             NavigationService.Navigate(new Uri("/Page1.xaml", UriKind.Relative));
         }
+
+        private void TextBlock_Tap_2(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Locator.Get<INavigationManager>().Navigate(StringKeys.ViewSessions);
+        }
     }
 }

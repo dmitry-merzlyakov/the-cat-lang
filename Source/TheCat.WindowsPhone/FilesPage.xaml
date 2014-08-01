@@ -20,7 +20,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     Name="TheFilesPage"
-    shell:SystemTray.IsVisible="True" Loaded="TheFilesPage_Loaded" Unloaded="TheFilesPage_Unloaded">
+    shell:SystemTray.IsVisible="True" Loaded="TheFilesPage_Loaded" >
 
     <phone:PhoneApplicationPage.Resources>
         <ImageBrush x:Key="FolderImageBrush" ImageSource="Images\folder.png"></ImageBrush>
@@ -86,7 +86,6 @@
         </controls:Pivot>
     </Grid>
 
-    <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton x:Name="appbar_add_file" IconUri="/Images/appbar.file.png" Text="add file"/>

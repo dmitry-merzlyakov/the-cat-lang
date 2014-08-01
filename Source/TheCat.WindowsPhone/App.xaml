@@ -13,6 +13,8 @@
         <clr:String x:Key="ApplicationTitle">THE CAT PROGRAMMING LANGUAGE</clr:String>
         <clr:String x:Key="FilesTitle">files</clr:String>
         <clr:String x:Key="SearchTitle">search</clr:String>
+        <clr:String x:Key="SessionsTitle">sessions</clr:String>
+        <clr:String x:Key="SessionTitle">session</clr:String>
         <clr:String x:Key="NoneItemsInThisFolder">This folder is empty</clr:String>
         
 
@@ -101,6 +103,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="LabelTextBlock" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,0,-6"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneSubtleBrush}"/>
         </Style>
 
     </Application.Resources>

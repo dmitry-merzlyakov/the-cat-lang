@@ -22,5 +22,9 @@ namespace TheCat.Infrastructure
         public const string FileName = "file-name";
         public const string CurrentFolderName = "current-folder-name";
         public const string ViewFiles = "view-files";
+        public const string ViewSessions = "view-sessions";
+        public const string CreateSession = "create-session";
+        public const string EditSession = "edit-session";
+        public const string SessionName = "session-name";
     }
 }

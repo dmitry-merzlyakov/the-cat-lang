@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Cat.Infrastructure;
 using Cat;
 using TheCat.WindowsPhone.Concrete;
+using TheCat.Infrastructure.Sessions;
 
 namespace TheCat.WindowsPhone
 {
