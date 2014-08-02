@@ -106,5 +106,27 @@ namespace TheCat.WindowsPhone.Concrete
         {
             IsolatedStorage.CopyFile(sourceFileName, destinationFileName);
         }
+
+        public object GetRegistryValue(string registryKey)
+        {
+            if (String.IsNullOrWhiteSpace(registryKey))
+                throw new ArgumentException("registryKey");
+
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            return settings.Contains(registryKey) ? settings[registryKey] : null;
+        }
+
+        public void SetRegistryValue(string registryKey, object registryValue)
+        {
+            if (String.IsNullOrWhiteSpace(registryKey))
+                throw new ArgumentException("registryKey");
+
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            if (settings.Contains(registryKey))
+                settings[registryKey] = registryValue;
+            else
+                settings.Add(registryKey, registryValue);
+        }
+
     }
 }

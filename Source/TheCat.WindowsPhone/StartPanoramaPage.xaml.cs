@@ -19,6 +19,11 @@ namespace TheCat.WindowsPhone
         public StartPanoramaPage()
         {
             InitializeComponent();
+
+            // TODO - should be moved to the main model
+            IEnvironmentManager environmentManager = Locator.Get<IEnvironmentManager>();
+            if (!environmentManager.IsEnvironmentInitialized)
+                environmentManager.InitializeEnvironment();
         }
 
         private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)

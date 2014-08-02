@@ -30,5 +30,8 @@ namespace TheCat.Infrastructure.VirtualFileSystem
 
         void MoveDirectory(string sourceDirectoryName, string destinationDirectoryName);
         void MoveFile(string sourceFileName, string destinationFileName);
+
+        object GetRegistryValue(string registryKey);
+        void SetRegistryValue(string registryKey, object registryValue);
     }
 }

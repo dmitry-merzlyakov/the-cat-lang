@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Cat;
-using Cat.Infrastructure;
 
 namespace TheCat.Infrastructure.Sessions
 {
@@ -65,7 +64,7 @@ namespace TheCat.Infrastructure.Sessions
             ShowWelcome();
 
             // TODO - should be moved to the application initialization code
-            new PresetManager(CatEnvironment.gsDataFolder).EnsureInitialized();
+            //new PresetManager(CatEnvironment.gsDataFolder).EnsureInitialized();
 
             LoadInitModules();
         }

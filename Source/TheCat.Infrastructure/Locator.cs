@@ -40,7 +40,12 @@ namespace TheCat.Infrastructure
 
             int objHash = GetObjHash(typeof(T), key, parms);
             if (!Objects.TryGetValue(objHash, out obj))
-                Objects[objHash] = obj = GetServiceDescriptor(typeof(T), key).Create(parms);
+            {
+                IServiceDescriptor descriptor = GetServiceDescriptor(typeof(T), key);
+                obj = descriptor.Create(parms);
+                if (!descriptor.IsTransient)
+                    Objects[objHash] = obj;
+            }
 
             return (T)obj;
         }

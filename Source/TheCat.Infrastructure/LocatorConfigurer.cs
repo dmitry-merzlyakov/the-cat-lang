@@ -13,6 +13,7 @@ using TheCat.Infrastructure.VirtualFileSystem.Views;
 using TheCat.Infrastructure.Events;
 using TheCat.Infrastructure.Sessions.Views;
 using TheCat.Infrastructure.Sessions;
+using TheCat.Infrastructure.EnvironmentManagement;
 
 namespace TheCat.Infrastructure
 {
@@ -23,6 +24,7 @@ namespace TheCat.Infrastructure
             Locator.AddService<IVirtualFileSystemRepository>((p) => new VirtualFileSystemRepository(Locator.Get<IExtendedFileSystemProvider>()));
             Locator.AddService<ISessionDefinitionRepository>((p) => new SessionDefinitionRepository(Locator.Get<IExtendedFileSystemProvider>()));
             Locator.AddService<EventManager>((p) => new EventManager());
+            Locator.AddService<IEnvironmentManager>((p) => new EnvironmentManager(Locator.Get<IExtendedFileSystemProvider>(), Cat.CatEnvironment.gsDataFolder));
 
             Locator.AddService<BaseFileDescriptorViewModel>(StringKeys.CreateFile, (p) => new CreateFileViewModel(Locator.Get<IVirtualFileSystemRepository>(), p[StringKeys.CurrentFolderName]), true);
             Locator.AddService<BaseFileDescriptorViewModel>(StringKeys.CreateFolder, (p) => new CreateFolderViewModel(Locator.Get<IVirtualFileSystemRepository>(), p[StringKeys.CurrentFolderName]), true);
@@ -35,7 +37,7 @@ namespace TheCat.Infrastructure
 
             Locator.AddService<SessionDefinitionsViewModel>(StringKeys.ViewSessions, (p) => new SessionDefinitionsViewModel(Locator.Get<ISessionDefinitionRepository>()), false);
             Locator.AddService<SessionDefinitionsEditModel>(StringKeys.CreateSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>()), true);
-            Locator.AddService<SessionDefinitionsEditModel>(StringKeys.EditSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>(), p[StringKeys.SessionName]), false);
+            Locator.AddService<SessionDefinitionsEditModel>(StringKeys.EditSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>(), p[StringKeys.SessionName]), true);
         }
     }
 }

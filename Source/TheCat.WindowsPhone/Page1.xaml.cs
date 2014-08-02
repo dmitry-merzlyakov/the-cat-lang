@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Cat.Infrastructure;
 using Cat;
 using TheCat.WindowsPhone.Concrete;
 using TheCat.Infrastructure.Sessions;
@@ -38,7 +37,7 @@ namespace TheCat.WindowsPhone
             CatEnvironment.FileSystem = new IsolatedStorageFileSystem();
             CatEnvironment.GraphicConsole = new WindowConsole(this.canvas1);
 
-            new PresetManager(CatEnvironment.gsDataFolder).EnsureInitialized();
+            //new PresetManager(CatEnvironment.gsDataFolder).EnsureInitialized();
 
             SessionDefinition sessionDefinition = new SessionDefinition();
             sessionDefinition.InitCommands.Add("\"demo-graphics.cat\" #load");
