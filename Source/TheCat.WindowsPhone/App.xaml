@@ -16,7 +16,8 @@
         <clr:String x:Key="SessionsTitle">sessions</clr:String>
         <clr:String x:Key="SessionTitle">session</clr:String>
         <clr:String x:Key="NoneItemsInThisFolder">This folder is empty</clr:String>
-        
+        <clr:String x:Key="TextConsoleTitle">console</clr:String>
+        <clr:String x:Key="GrapicWindowTitle">window</clr:String>
 
         <!-- This style is based on MSDN example: http://code.msdn.microsoft.com/wpapps/Scrollable-TextBox-for-007e3836/view/Reviews -->
         <Style x:Key="ScrollableTextBoxStyle" TargetType="TextBox">

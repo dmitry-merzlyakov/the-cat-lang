@@ -307,6 +307,10 @@ namespace Cat
             int i = 0;
             while (i < fxns.Count)
             {
+                //DM+ Added ability to cancel execution by cancellation request
+                CatEnvironment.CheckCancellationPending();
+                //DM-
+
                 Function f = fxns[i];
                 
                 // Check if this is a tail call

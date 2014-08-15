@@ -23,5 +23,21 @@ namespace Cat
         {
             throw new NotImplementedException();
         }
+
+        public static void CancelExecution()
+        {
+            IsCancellationPending = true;
+        }
+
+        public static void CheckCancellationPending()
+        {
+            if (IsCancellationPending)
+            {
+                IsCancellationPending = false;
+                throw new Exception("Thread is aborted");
+            }
+        }
+
+        private static bool IsCancellationPending { get; set; }
     }
 }

@@ -33,7 +33,8 @@ namespace TheCat.WindowsPhone
 
         private void TextBlock_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Page1.xaml", UriKind.Relative));
+            Locator.Get<INavigationManager>().Navigate(StringKeys.RunConsole);
+            //NavigationService.Navigate(new Uri("/Page1.xaml", UriKind.Relative));
         }
 
         private void TextBlock_Tap_2(object sender, System.Windows.Input.GestureEventArgs e)

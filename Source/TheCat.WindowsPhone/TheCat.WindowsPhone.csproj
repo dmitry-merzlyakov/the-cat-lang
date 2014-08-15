@@ -73,6 +73,9 @@
     <Compile Include="Concrete\LocatorConfigurer.cs" />
     <Compile Include="Concrete\WindowConsole.cs" />
     <Compile Include="Concrete\WindowsPhoneNavigationManager.cs" />
+    <Compile Include="ConsolePage.xaml.cs">
+      <DependentUpon>ConsolePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CodeEditorUserControl.xaml.cs">
       <DependentUpon>CodeEditorUserControl.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="ConsolePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CodeEditorUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +175,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\appbar.transport.play.rest.png" />
+    <Content Include="Images\appbar.clean.png" />
     <Content Include="Images\appbar.clipboard.paste.png" />
     <Resource Include="Images\appbar.cog.png" />
     <Content Include="Images\appbar.folder.png" />

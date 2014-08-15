@@ -26,8 +26,12 @@ namespace TheCat.WindowsPhone.Concrete
         private readonly IList<GraphicCommand> Commands = new List<GraphicCommand>();
         public Canvas Canvas { get; private set; }
 
+        public Action DoEnsureVisible { get; set; }
+
         public void EnsureVisible()
         {
+            if (DoEnsureVisible != null)
+                Deployment.Current.Dispatcher.BeginInvoke(() => DoEnsureVisible());
             // TODO
         }
 
@@ -40,7 +44,7 @@ namespace TheCat.WindowsPhone.Concrete
                 Commands.Add(cmd);
 
             // draw command
-            cmd.Invoke(this, this.GetType());
+            Deployment.Current.Dispatcher.BeginInvoke(() => cmd.Invoke(this, this.GetType()));
         }
 
         /* ****************************** */
@@ -200,7 +204,7 @@ namespace TheCat.WindowsPhone.Concrete
 
         public void OpenWindow()
         {
-            throw new NotImplementedException();
+            EnsureVisible();
         }
 
         public void NullifyWindow()
@@ -217,7 +221,7 @@ namespace TheCat.WindowsPhone.Concrete
 
         public void ClearWindow()
         {
-            throw new NotImplementedException();
+            Canvas.Children.Clear();
         }
 
         public void SaveToFile(string s)

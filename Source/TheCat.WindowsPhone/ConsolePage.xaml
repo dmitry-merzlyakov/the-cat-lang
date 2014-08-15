@@ -1,0 +1,88 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TheCat.WindowsPhone.ConsolePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Name="MainPivot" Title="{StaticResource ApplicationTitle}">
+            
+            <!--Pivot item one-->
+            <controls:PivotItem Header="{StaticResource TextConsoleTitle}">
+                <Grid Background="{StaticResource PhoneInactiveBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="56" />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Name="TextScrollViewer" VerticalAlignment="Bottom" LayoutUpdated="TextScrollViewer_LayoutUpdated">
+                        <ItemsControl Grid.Row="0" ItemsSource="{Binding OutputText}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,0,0,-24" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>                        
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <toolkit:AutoCompleteBox x:Name="acBox" Grid.Row="1" Grid.Column="0" 
+                            Text="{Binding InputLine, Mode=TwoWay}" Margin="-12" 
+                            IsTextCompletionEnabled="True"
+                            ItemsSource="{Binding InputLineHistory}"/>
+                        <!--
+                        <toolkit:PhoneTextBox Grid.Row="1" Grid.Column="0" 
+                            Text="{Binding InputLine, Mode=TwoWay}" 
+                                              Hint="Enter commands here" 
+                                              Margin="-12" />
+                        -->
+                        <Button Grid.Row="1" Grid.Column="1" 
+                                Command="{Binding ProcessInputLine}" Margin="-12" 
+                                Content="Enter" />
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Name="GraphicPivotItem" Header="{StaticResource GrapicWindowTitle}">
+                <Border BorderThickness="2" BorderBrush="{StaticResource PhoneBorderBrush}">
+                    <Canvas Name="GraphicWindowCanvas" SizeChanged="GraphicWindowCanvas_SizeChanged" />
+                </Border>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_clear_output" IconUri="/Images/appbar.clean.png" Text="clear"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="stop_execution" Text="stop execution"/>
+                <shell:ApplicationBarMenuItem x:Name="restart_session" Text="restart console"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <i:Interaction.Behaviors>
+        <abu:AppBarItemCommand Id="clear" Command="{Binding ClearOutput}"/>
+        <abu:AppBarItemCommand Id="stop execution" Text="stop execution" Type="MenuItem" Command="{Binding StopExecution}" />
+        <abu:AppBarItemCommand Id="restart console" Text="restart console" Type="MenuItem" Command="{Binding RestartSession}" />
+    </i:Interaction.Behaviors>
+
+</phone:PhoneApplicationPage>

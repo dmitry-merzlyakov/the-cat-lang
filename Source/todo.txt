@@ -30,3 +30,27 @@ Roadmap:
 - add landscape support
 - future enhancements (syntex highlighting (in RO at least); debugging; GitHub support)
 - plan desktop application
+
+
+Other notes:
+
+== Console page
+[+] Set Scroll Viewer position at the bottom after adding a new output row
+[+] Background execution
+[+] Stop execution at any moment
+[ ] Allow switching to text console during execution with graphic output
+[+] Set zero coordinates of virtual graphic window at the centre
+[ ] Limit the graphical output with the border (no artifacts outside the border)
+[+] Add history of entered command (keep commands during the session)
+[+] Add autocomplete box that suggests previously entered commands from the history
+[ ] Add commands to select prior or next command from the history
+[ ] Add command to clear history (and InputLine)
+[?] Add icon (instead of text) to the button that enters a command
+[ ] Clear input line and switch to text console when Clear Console
+[ ] Add valid handle for #exit command (close session)
+[ ] Add valid output for #defs command
+[+] Enable landscape view
+[-] Add Wrap Text command to enable horizontal scroll for too long output lines (Declined by technical reasons)    
+[-] Enable multilnes for the text box to enter commands (Declined by technical reasons)    
+[ ] Verify tiling ono the page
+[ ] Tech: do not create the model each time when the console page is opening

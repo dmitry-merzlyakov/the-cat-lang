@@ -34,7 +34,7 @@ namespace TheCat.Infrastructure
                 {
                     _CanExecute = value;
                     if (CanExecuteChanged != null)
-                        CanExecuteChanged(this, EventArgs.Empty);
+                        Deployment.Current.Dispatcher.BeginInvoke(() => CanExecuteChanged(this, EventArgs.Empty));
                 }
             }
         }

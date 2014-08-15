@@ -75,6 +75,7 @@
     <Compile Include="Sessions\Session.cs" />
     <Compile Include="Sessions\SessionDefinition.cs" />
     <Compile Include="Sessions\SessionDefinitionRepository.cs" />
+    <Compile Include="Sessions\Views\ConsoleViewModel.cs" />
     <Compile Include="Sessions\Views\SessionDefinitionsEditModel.cs" />
     <Compile Include="Sessions\Views\SessionDefinitionsViewModel.cs" />
     <Compile Include="StringKeys.cs" />
