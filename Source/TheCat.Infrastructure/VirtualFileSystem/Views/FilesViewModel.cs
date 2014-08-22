@@ -34,6 +34,9 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
             PasteCommand = new ClipboardCommand(() => PasteFileSystemItem());
             ClearClipboardCommand = new ClipboardCommand(() => FileSystemItemClipboard.Current.Clear());
             DeleteCommand = new Command((p) => DeleteFileSystemItem((FileSystemItemDescriptor)p));
+            RunFileCommand = new Command(
+                (p) => { Locator.Get<INavigationManager>().Navigate(StringKeys.RunConsoleWithFile, CompositeParams.Create(StringKeys.FileName, ((FileSystemItemDescriptor)p).FullName)); },
+                (p) => { return p == null || !((FileSystemItemDescriptor)p).IsFolder; });
 
             Locator.Get<EventManager>().RegisterSubscription<ItemChangedEvent>(ItemChangedHandler);
             Locator.Get<EventManager>().RegisterSubscription<ClipboardChangedEvent>(ClipboardChangedHandler);
@@ -172,6 +175,7 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
         public ICommand PasteCommand { get; private set; }
         public ICommand ClearClipboardCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand RunFileCommand { get; private set; }
 
         private IVirtualFileSystemRepository Repository
         {

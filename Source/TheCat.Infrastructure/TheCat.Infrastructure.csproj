@@ -55,6 +55,8 @@
     <Compile Include="BaseListViewModel.cs" />
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Common\MainViewModel.cs" />
+    <Compile Include="Common\SettingsViewModel.cs" />
     <Compile Include="CompositeParams.cs" />
     <Compile Include="Concrete\BaseXmlRepository.cs" />
     <Compile Include="Concrete\BaseXmlReader.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Locator.cs" />
     <Compile Include="LocatorConfigurer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sessions\Extensions.cs" />
     <Compile Include="Sessions\ISessionDefinitionRepository.cs" />
     <Compile Include="Sessions\Session.cs" />
     <Compile Include="Sessions\SessionDefinition.cs" />

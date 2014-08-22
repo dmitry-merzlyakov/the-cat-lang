@@ -7,6 +7,8 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cat="clr-namespace:TheCat.WindowsPhone.Controls;assembly=TheCat.WindowsPhone"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     xmlns:tilteffect="clr-namespace:ControlTiltEffect"    
     tilteffect:TiltEffect.IsTiltEnabled="True"    
@@ -25,19 +27,39 @@
                 <ListBox Margin="0,12,0,0">
                     <ListBox.Items>
                         <ListBoxItem>
-                            <TextBlock Text="console" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap_1" Margin="12,0,12,12" />
+                            <TextBlock Text="console" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12">
+                                <i:Interaction.Behaviors>
+                                    <cat:ControlTapCommandBindingBehavior Command="{Binding OpenConsole}" />
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="sessions" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" Tap="TextBlock_Tap_2" />
+                            <TextBlock Text="sessions" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" >
+                                <i:Interaction.Behaviors>
+                                    <cat:ControlTapCommandBindingBehavior Command="{Binding OpenSessions}" />
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="files" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap" Margin="12,0,12,12" />
+                            <TextBlock Text="files" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" >
+                                <i:Interaction.Behaviors>
+                                    <cat:ControlTapCommandBindingBehavior Command="{Binding OpenFiles}" />
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="settings" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap" Margin="12,0,12,12" />
+                            <TextBlock Text="settings" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="12,0,12,12" >
+                                <i:Interaction.Behaviors>
+                                    <cat:ControlTapCommandBindingBehavior Command="{Binding OpenSettings}" />
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="help" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="TextBlock_Tap"/>
+                            <TextBlock Text="help" Style="{StaticResource PhoneTextExtraLargeStyle}" >
+                                <i:Interaction.Behaviors>
+                                    <cat:ControlTapCommandBindingBehavior Command="{Binding ShowHelp}" />
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
                         </ListBoxItem>
                     </ListBox.Items>
                 </ListBox>
@@ -48,7 +70,7 @@
                 <Grid/>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Header="recent">
+            <controls:PanoramaItem Header="search">
                 <Grid/>
             </controls:PanoramaItem>
 

@@ -14,6 +14,7 @@ using TheCat.Infrastructure.Events;
 using TheCat.Infrastructure.Sessions.Views;
 using TheCat.Infrastructure.Sessions;
 using TheCat.Infrastructure.EnvironmentManagement;
+using TheCat.Infrastructure.Common;
 
 namespace TheCat.Infrastructure
 {
@@ -38,6 +39,13 @@ namespace TheCat.Infrastructure
             Locator.AddService<SessionDefinitionsViewModel>(StringKeys.ViewSessions, (p) => new SessionDefinitionsViewModel(Locator.Get<ISessionDefinitionRepository>()), false);
             Locator.AddService<SessionDefinitionsEditModel>(StringKeys.CreateSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>()), true);
             Locator.AddService<SessionDefinitionsEditModel>(StringKeys.EditSession, (p) => new SessionDefinitionsEditModel(Locator.Get<ISessionDefinitionRepository>(), p[StringKeys.SessionName]), true);
+
+            Locator.AddService<SessionDefinition>(StringKeys.RunConsole, (p) => Locator.Get<ISessionDefinitionRepository>().GetDefaultSessionDefinition(), true);
+            Locator.AddService<SessionDefinition>(StringKeys.RunConsoleWithSession, (p) => Locator.Get<ISessionDefinitionRepository>().Get(p[StringKeys.SessionName]), true);
+            Locator.AddService<SessionDefinition>(StringKeys.RunConsoleWithFile, (p) => Locator.Get<ISessionDefinitionRepository>().GetSessionDefinitionForFile(p[StringKeys.FileName]), true);
+
+            Locator.AddService<MainViewModel>((p) => new MainViewModel());
+            Locator.AddService<SettingsViewModel>((p) => new SettingsViewModel());            
         }
     }
 }

@@ -15,15 +15,16 @@ using TheCat.Infrastructure.Common;
 
 namespace TheCat.WindowsPhone
 {
-    public partial class StartPanoramaPage : PhoneApplicationPage
+    public partial class EditSettingsPage : PhoneApplicationPage
     {
-        public StartPanoramaPage()
+        public EditSettingsPage()
         {
             InitializeComponent();
-
-            DataContext = MainViewModel = Locator.Get<MainViewModel>();
+            INavigationManager navigationManager = Locator.Get<INavigationManager>();
+            navigationManager.PopTarget(); navigationManager.PopParams();  // TODO - refactor it...
+            DataContext = SettingsViewModel = Locator.Get<SettingsViewModel>();
         }
 
-        public MainViewModel MainViewModel { get; private set; }
+        public SettingsViewModel SettingsViewModel { get; set; }
     }
 }

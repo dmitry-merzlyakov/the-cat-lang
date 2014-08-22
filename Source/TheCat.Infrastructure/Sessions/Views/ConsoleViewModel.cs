@@ -106,6 +106,9 @@ namespace TheCat.Infrastructure.Sessions.Views
             if (!InputLineHistory.Contains(InputLine))
                 InputLineHistory.Add(InputLine);
 
+            if (InputLine.IsExitCommand())
+                Locator.Get<INavigationManager>().GoBack();
+
             Run(() => Session.ProcessInputLine(InputLine));
         }
 

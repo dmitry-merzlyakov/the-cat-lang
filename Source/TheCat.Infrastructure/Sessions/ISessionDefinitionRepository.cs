@@ -13,6 +13,7 @@ namespace TheCat.Infrastructure.Sessions
 {
     public interface ISessionDefinitionRepository : IBaseRepository<SessionDefinition,string>
     {
-
+        SessionDefinition GetDefaultSessionDefinition();
+        void SaveDefaultSessionDefinition(SessionDefinition sessionDefinition);
     }
 }

@@ -25,6 +25,12 @@ namespace TheCat.Infrastructure
             CanExecute = canExecute;
         }
 
+        public Command(Action<object> paramAction, Func<object, bool> canExecuteFunc)
+        {
+            ParamAction = paramAction;
+            CanExecuteFunc = canExecuteFunc;
+        }
+
         public bool CanExecute
         {
             get { return _CanExecute; }
@@ -41,6 +47,9 @@ namespace TheCat.Infrastructure
 
         bool ICommand.CanExecute(object parameter)
         {
+            if (CanExecuteFunc != null)
+                _CanExecute = CanExecuteFunc(parameter); // Do not generate the event in case of function
+
             return this.CanExecute;
         }
 
@@ -60,6 +69,7 @@ namespace TheCat.Infrastructure
 
         private readonly Action SimpleAction;
         private readonly Action<object> ParamAction;
+        private readonly Func<object,bool> CanExecuteFunc;
         private bool _CanExecute;
     }
 

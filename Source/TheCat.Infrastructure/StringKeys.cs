@@ -27,5 +27,8 @@ namespace TheCat.Infrastructure
         public const string EditSession = "edit-session";
         public const string SessionName = "session-name";
         public const string RunConsole = "run-console";
+        public const string RunConsoleWithSession = "run-console-with-session";
+        public const string RunConsoleWithFile = "run-console-with-file";
+        public const string ViewSettings = "view-settings";
     }
 }

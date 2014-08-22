@@ -21,7 +21,7 @@ namespace TheCat.Infrastructure.Sessions
         public SessionDefinition()
         {
             ShowWelcome = true;
-            InitModule = "everything.cat";
+            InitModules = new List<string>();
             InitCommands = new List<string>();
             OutputTimeElapsed = true;
             OutputStack = true;
@@ -40,8 +40,7 @@ namespace TheCat.Infrastructure.Sessions
         [DefaultValue(true)]
         public bool ShowWelcome { get; set; }
 
-        [XmlAttribute(AttributeName = "init-module")]
-        public string InitModule { get; set; }
+        public List<string> InitModules { get; set; }
 
         public List<string> InitCommands { get; set; }
 

@@ -62,13 +62,13 @@ namespace TheCat.Infrastructure.Concrete
             }
         }
 
-        public T Get(K id)
+        public virtual T Get(K id)
         {
             EnsureLoaded();
             return Items.FirstOrDefault(item => Object.Equals(KeyGetter(item), id));
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             EnsureLoaded();
             return Items.AsQueryable();
@@ -91,9 +91,11 @@ namespace TheCat.Infrastructure.Concrete
         public void Update(T item)
         {
             EnsureLoaded();
-            T existingItem = Get(KeyGetter(item));
-            if (existingItem != null)
-                Items.Remove(existingItem);
+
+            int position;
+            while ((position = Items.IndexOf(Get(KeyGetter(item)))) != -1)
+                Items.RemoveAt(position);
+
             Items.Add(item);
             Save();
             SendNotification(item, RepositoryItemChangeType.Updated);

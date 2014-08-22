@@ -47,7 +47,7 @@ Other notes:
 [ ] Add command to clear history (and InputLine)
 [?] Add icon (instead of text) to the button that enters a command
 [ ] Clear input line and switch to text console when Clear Console
-[ ] Add valid handle for #exit command (close session)
+[+] Add valid handle for #exit command (close session)
 [ ] Add valid output for #defs command
 [+] Enable landscape view
 [-] Add Wrap Text command to enable horizontal scroll for too long output lines (Declined by technical reasons)    

@@ -59,6 +59,7 @@
                                     </i:Interaction.Behaviors>
                                     <toolkit:ContextMenuService.ContextMenu>
                                         <toolkit:ContextMenu>
+                                            <toolkit:MenuItem Header="Run" Command="{Binding DataContext.RunFileCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
                                             <toolkit:MenuItem Header="Rename" Command="{Binding DataContext.RenameCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
                                             <toolkit:MenuItem Header="Copy" Command="{Binding DataContext.CopyCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />
                                             <toolkit:MenuItem Header="Cut" Command="{Binding DataContext.CutCommand, ElementName=TheFilesPage}" CommandParameter="{Binding}" />

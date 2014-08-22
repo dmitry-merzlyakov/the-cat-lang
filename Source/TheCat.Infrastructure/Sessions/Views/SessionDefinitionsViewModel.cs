@@ -25,7 +25,7 @@ namespace TheCat.Infrastructure.Sessions.Views
             CreateSession = new Command(() => Locator.Get<INavigationManager>().Navigate(StringKeys.CreateSession));
             EditSession = new Command((d) => Locator.Get<INavigationManager>().Navigate(StringKeys.EditSession, CompositeParams.Create(StringKeys.SessionName, ((SessionDefinition)d).SessionDefinitionID)));
             DeleteSession = new Command((d) => DeleteSessionDefinition((SessionDefinition)d));
-            RunSession = new Command(() => MessageBox.Show("Coming soon - run session"));
+            RunSession = new Command((d) => Locator.Get<INavigationManager>().Navigate(StringKeys.RunConsoleWithSession, CompositeParams.Create(StringKeys.SessionName, ((SessionDefinition)d).SessionDefinitionID)));
 
             Locator.Get<EventManager>().RegisterSubscription<RepositoryItemChangedEvent<SessionDefinition>>(SessionDefinitionChangedHandler);
         }

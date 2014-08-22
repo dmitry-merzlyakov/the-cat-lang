@@ -24,11 +24,11 @@ namespace TheCat.WindowsPhone
         {
             InitializeComponent();
 
-            // INavigationManager navigationManager = Locator.Get<INavigationManager>();
-            // DataContext = FileDescriptorViewModel = Locator.Get<BaseFileDescriptorViewModel>(navigationManager.PopTarget(), navigationManager.PopParams());
-
             DataContext = ConsoleViewModel = new ConsoleViewModel(Locator.Get<IExtendedFileSystemProvider>(), 
                 new WindowConsole(this.GraphicWindowCanvas) { DoEnsureVisible = DoEnsureVisible });
+
+            INavigationManager navigationManager = Locator.Get<INavigationManager>();
+            SessionDefinition = Locator.Get<SessionDefinition>(navigationManager.PopTarget(), navigationManager.PopParams());
         }
 
         public void DoEnsureVisible()
@@ -37,12 +37,11 @@ namespace TheCat.WindowsPhone
         }
 
         public ConsoleViewModel ConsoleViewModel { get; set; }
+        public SessionDefinition SessionDefinition { get; set; }
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SessionDefinition sessionDefinition = new SessionDefinition();
-
-            ConsoleViewModel.Initialize(sessionDefinition);
+            ConsoleViewModel.Initialize(SessionDefinition);
         }
 
         // This code positions the scroll viewer to the last row if the nu,ber of items was changed. TODO - refactor

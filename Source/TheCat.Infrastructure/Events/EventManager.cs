@@ -21,10 +21,8 @@ namespace TheCat.Infrastructure.Events
                 throw new ArgumentNullException("evnt");
 
             Subscription subscription;
-            if (!Subscriptions.TryGetValue(evnt.GetType(), out subscription))
-                throw new ArgumentException(String.Format("Event type '{0}' is not registered", evnt.GetType()));
-
-            subscription.Subscribers.ForEach(s => s.Invoke(evnt));
+            if (Subscriptions.TryGetValue(evnt.GetType(), out subscription))
+                subscription.Subscribers.ForEach(s => s.Invoke(evnt));
         }
 
         public void RegisterSubscription<T>(Action<T> evntHandler) where T : IEvent

@@ -30,6 +30,9 @@ namespace TheCat.WindowsPhone.Concrete
             PageMapping.Add(StringKeys.CreateSession, "/EditSessionPage.xaml");
             PageMapping.Add(StringKeys.EditSession, "/EditSessionPage.xaml");
             PageMapping.Add(StringKeys.RunConsole, "/ConsolePage.xaml");
+            PageMapping.Add(StringKeys.RunConsoleWithSession, "/ConsolePage.xaml");
+            PageMapping.Add(StringKeys.RunConsoleWithFile, "/ConsolePage.xaml");
+            PageMapping.Add(StringKeys.ViewSettings, "/EditSettingsPage.xaml");
         }
 
         public PhoneApplicationPage CurrentPage

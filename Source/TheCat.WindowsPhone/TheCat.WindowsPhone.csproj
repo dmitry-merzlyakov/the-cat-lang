@@ -94,6 +94,9 @@
     <Compile Include="EditSessionPage.xaml.cs">
       <DependentUpon>EditSessionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditSettingsPage.xaml.cs">
+      <DependentUpon>EditSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FilesPage.xaml.cs">
       <DependentUpon>FilesPage.xaml</DependentUpon>
     </Compile>
@@ -110,8 +113,6 @@
     <Compile Include="StartPanoramaPage.xaml.cs">
       <DependentUpon>StartPanoramaPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -135,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditSessionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

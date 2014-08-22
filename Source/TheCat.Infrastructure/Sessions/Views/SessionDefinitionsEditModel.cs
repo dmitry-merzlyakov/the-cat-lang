@@ -19,7 +19,7 @@ namespace TheCat.Infrastructure.Sessions.Views
         public SessionDefinitionsEditModel(ISessionDefinitionRepository repository, string sessionDefinitionID = null)
         {
             Repository = repository;
-            SessionDefinition = String.IsNullOrWhiteSpace(sessionDefinitionID) ? new SessionDefinition() : Repository.Get(sessionDefinitionID);
+            SessionDefinition = String.IsNullOrWhiteSpace(sessionDefinitionID) ? Repository.GetDefaultSessionDefinition() : Repository.Get(sessionDefinitionID);
             ConvertToModel();
         }
 
@@ -54,13 +54,13 @@ namespace TheCat.Infrastructure.Sessions.Views
             }
         }
 
-        public string InitModule
+        public string InitModules
         {
-            get { return _InitModule; }
+            get { return _InitModules; }
             set
             {
-                _InitModule = value;
-                OnPropertyChanged("InitModule");
+                _InitModules = value;
+                OnPropertyChanged("InitModules");
             }
         }
 
@@ -126,6 +126,11 @@ namespace TheCat.Infrastructure.Sessions.Views
             }
         }
 
+        public bool IsNotDefaultSessionDefinition
+        {
+            get { return SessionDefinition.SessionDefinitionID != SessionDefinitionRepository.SessionDefinitionDefaultID; }
+        }
+
         protected ISessionDefinitionRepository Repository
         {
             get { return _Repository; }
@@ -174,12 +179,8 @@ namespace TheCat.Infrastructure.Sessions.Views
             Name = SessionDefinition.Name;
             Description = SessionDefinition.Description;
             ShowWelcome = SessionDefinition.ShowWelcome;
-            InitModule = SessionDefinition.InitModule;
-
-            StringBuilder sb = new StringBuilder();
-            SessionDefinition.InitCommands.ForEach(s => sb.AppendLine(s));
-            InitCommands = sb.ToString();
-
+            InitModules = SessionDefinition.InitModules.CreateStringFromList();
+            InitCommands = SessionDefinition.InitCommands.CreateStringFromList();
             OutputTimeElapsed = SessionDefinition.OutputTimeElapsed;
             OutputStack = SessionDefinition.OutputStack;
         }
@@ -189,22 +190,19 @@ namespace TheCat.Infrastructure.Sessions.Views
             SessionDefinition.Name = Name;
             SessionDefinition.Description = Description;
             SessionDefinition.ShowWelcome = ShowWelcome;
-            SessionDefinition.InitModule = InitModule;
-
-            SessionDefinition.InitCommands = InitCommands.Split(Separator, StringSplitOptions.RemoveEmptyEntries).ToList();
-
+            SessionDefinition.InitModules = InitModules.CreateListFromString();
+            SessionDefinition.InitCommands = InitCommands.CreateListFromString();
             SessionDefinition.OutputTimeElapsed = OutputTimeElapsed;
             SessionDefinition.OutputStack = OutputStack;
         }
 
-        private static string[] Separator = new string[] { "\r" };
 
         private ISessionDefinitionRepository _Repository;
 
         private string _Name;
         private string _Description;
         private bool _ShowWelcome;
-        private string _InitModule;
+        private string _InitModules;
         private string _InitCommands;
         private bool _OutputTimeElapsed;
         private bool _OutputStack;

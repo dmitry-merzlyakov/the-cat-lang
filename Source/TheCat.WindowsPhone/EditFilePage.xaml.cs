@@ -47,6 +47,12 @@ namespace TheCat.WindowsPhone
                 NavigationService.GoBack();
         }
 
+        private void save_and_run_Click(object sender, EventArgs e)
+        {
+            CodeEditor.Commit();
+            EditFileViewModel.SaveAndRun();
+        }
+
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             base.OnBackKeyPress(e);

@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace TheCat.Infrastructure.VirtualFileSystem.Views
 {
-    public class EditFileViewModel : INotifyPropertyChanged
+    public class EditFileViewModel : BaseViewModel
     {
         public EditFileViewModel(IVirtualFileSystemRepository repository, string fileName)
         {
@@ -94,25 +94,24 @@ namespace TheCat.Infrastructure.VirtualFileSystem.Views
 
         public bool IsContentChanged { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public void ValidateAndSave()
         {
             if (IsContentChanged)
             {
                 FileSystemItemContent.Content = Content;
                 Repository.UpdateContent(FileSystemItemContent);
+                IsContentChanged = false;
             }
+        }
+
+        public void SaveAndRun()
+        {
+            ValidateAndSave();
+            Locator.Get<INavigationManager>().Navigate(StringKeys.RunConsoleWithFile, CompositeParams.Create(StringKeys.FileName, FileSystemItemDescriptor.FullName));
         }
 
         private FileSystemItemDescriptor FileSystemItemDescriptor { get; set; }
         private FileSystemItemContent FileSystemItemContent { get; set; }
-
-        private void OnPropertyChanged(string propertyChanged)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyChanged));
-        }
 
         private IVirtualFileSystemRepository Repository
         {

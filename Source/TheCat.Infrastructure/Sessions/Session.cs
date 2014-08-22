@@ -62,10 +62,6 @@ namespace TheCat.Infrastructure.Sessions
         private void StartSession()
         {
             ShowWelcome();
-
-            // TODO - should be moved to the application initialization code
-            //new PresetManager(CatEnvironment.gsDataFolder).EnsureInitialized();
-
             LoadInitModules();
         }
 
@@ -84,14 +80,14 @@ namespace TheCat.Infrastructure.Sessions
                 Output.WriteLine("");
             }
         }
-        
+
         private void LoadInitModules()
         {
-            if (!String.IsNullOrWhiteSpace(SessionDefinition.InitModule))
-                Executor.LoadModule(SessionDefinition.InitModule);
+            foreach (string s in SessionDefinition.InitModules)
+                Executor.LoadModule(s);
 
             foreach (string s in SessionDefinition.InitCommands)
-                Executor.Execute(s);
+                ProcessInputLine(s);
         }
 
         private SessionDefinition _SessionDefinition;

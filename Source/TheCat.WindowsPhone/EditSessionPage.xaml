@@ -33,20 +33,20 @@
         <ScrollViewer Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <TextBlock Name="Namelabel" Style="{StaticResource LabelTextBlock}">Name</TextBlock>
-                <TextBox Name="NameText" Text="{Binding Name, Mode=TwoWay}">
+                <TextBox Name="NameText" Text="{Binding Name, Mode=TwoWay}" IsEnabled="{Binding IsNotDefaultSessionDefinition}">
                     <i:Interaction.Behaviors>
                         <cat:TextBoxUpdateBindingBehavior/>
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <TextBlock Name="DescriptionLabel" Style="{StaticResource LabelTextBlock}">Description</TextBlock>
-                <TextBox Height="144" Name="DescriptionText" Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource ScrollableTextBoxStyle}" AcceptsReturn="True">
+                <TextBox Height="144" Name="DescriptionText" Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource ScrollableTextBoxStyle}" AcceptsReturn="True"  IsEnabled="{Binding IsNotDefaultSessionDefinition}">
                     <i:Interaction.Behaviors>
                         <cat:TextBoxUpdateBindingBehavior/>
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <toolkit:ToggleSwitch x:Name="ShowWelcomeToggle" Content="{Binding WelcomeStatusText}" IsChecked="{Binding ShowWelcome, Mode=TwoWay}" Header="Show Welcome"/>
-                <TextBlock Name="InitModuleLabel" Style="{StaticResource LabelTextBlock}">Initialization Module</TextBlock>
-                <TextBox Name="InitModuleText" Text="{Binding InitModule, Mode=TwoWay}">
+                <TextBlock Name="InitModuleLabel" Style="{StaticResource LabelTextBlock}">Initialization Modules</TextBlock>
+                <TextBox Height="108" Name="InitModuleText" Text="{Binding InitModules, Mode=TwoWay}" Style="{StaticResource ScrollableTextBoxStyle}" AcceptsReturn="True">
                     <i:Interaction.Behaviors>
                         <cat:TextBoxUpdateBindingBehavior/>
                     </i:Interaction.Behaviors>
